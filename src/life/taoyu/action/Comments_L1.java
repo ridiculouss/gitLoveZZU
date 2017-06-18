@@ -30,7 +30,7 @@ public class Comments_L1 extends ActionSupport implements ModelDriven<L1_Comment
 	@Resource(name = "GetjsonArray")
 	private Getjson jsonarray;
 
-	@Resource(name = "Comments_Modeldriven")
+	@Resource(name = "CommentsL1_Modeldriver")
 	private L1_Comments_Modeldriver CMD;
 
 	@Override

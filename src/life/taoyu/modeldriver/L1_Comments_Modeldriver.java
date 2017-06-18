@@ -1,8 +1,8 @@
 package life.taoyu.modeldriver;
 
 import org.springframework.stereotype.Component;
+@Component(value="CommentsL1_Modeldriver")
 
-@Component(value="Comments_Modeldriven")
 public class L1_Comments_Modeldriver {
 
 	private String goods_id;

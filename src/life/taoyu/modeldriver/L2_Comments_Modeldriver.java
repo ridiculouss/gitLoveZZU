@@ -1,5 +1,8 @@
 package life.taoyu.modeldriver;
 
+import org.springframework.stereotype.Component;
+
+@Component(value="CommentsL2_Modeldriver")
 public class L2_Comments_Modeldriver {
 
 	private String action;
@@ -7,7 +10,22 @@ public class L2_Comments_Modeldriver {
 	private String comments; 
 	private String L1_Cid; 
 	private String L2_Cid;
+	private String sql;
+	private Object values;
 	
+	public String getSql() {
+		return sql;
+	}
+	public void setSql(String sql) {
+		this.sql = sql;
+	}
+	
+	public Object getValues() {
+		return values;
+	}
+	public void setValues(Object values) {
+		this.values = values;
+	}
 	public String getAction() {
 		return action;
 	}

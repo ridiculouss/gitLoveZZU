@@ -15,7 +15,7 @@ public class Getjson {
 	public <T> JSONObject getjsonarray(List<T> list,String action){
 		JsonConfig config = new JsonConfig();
 		config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
-		config.setExcludes(new String[]{"user","setcomments_L1","cgoods","setorderitems"});
+		config.setExcludes(new String[]{"user","setcomments_L1","setcomments_L2","cgoods","setorderitems","comments_l1"});
 		
 	    JSONArray values = JSONArray.fromObject(list,config);  
 	    JSONObject json=new JSONObject();

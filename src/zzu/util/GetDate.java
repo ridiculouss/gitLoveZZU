@@ -45,7 +45,8 @@ public class GetDate {
 	            
 	       return Integer.parseInt(String.valueOf(between_days));           
 	    }    
-	    public static int daysBetween(String smdate,String bdate) throws ParseException{  //字符串格式日期计算相差天数方法
+	  //字符串格式日期计算相差天数方法
+	    public static int daysBetween(String smdate,String bdate) throws ParseException{  
 	        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");  
 	        Calendar cal = Calendar.getInstance();    
 	        cal.setTime(sdf.parse(smdate));    

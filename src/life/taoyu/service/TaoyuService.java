@@ -13,11 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import life.taoyu.dao.Dao_taoyu;
 import life.taoyu.entity.Cart;
 import life.taoyu.entity.Comments_L1;
+import life.taoyu.entity.Comments_L2;
 import life.taoyu.entity.Goods;
 import life.taoyu.entity.Order;
 import life.taoyu.entity.OrderItems;
 import life.taoyu.modeldriver.CGoods;
 import life.taoyu.modeldriver.L1_Comments_Modeldriver;
+import life.taoyu.modeldriver.L2_Comments_Modeldriver;
 import life.taoyu.modeldriver.OrderAndItems;
 import life.taoyu.modeldriver.Order_Ugoods;
 import life.taoyu.modeldriver.Ucomments;
@@ -365,4 +367,73 @@ public class TaoyuService {
 			}
 			return listOUG;
 		}
+
+//发表二级评论		
+		public boolean postcommentsL2(L2_Comments_Modeldriver CMD2) {
+			Successful=false;
+			sql="from User where SessionID=?";
+			values=CMD2.getSessionID();
+			List<User> user=dao.query(sql, values);
+			if(user.size() == 1){
+				
+				if(CMD2.getL1_Cid() !=null && !CMD2.getL1_Cid().isEmpty()){
+		//二级评论评一级评论操作	
+			List<Comments_L1> comments_l1=dao.query(CMD2.getSql(), CMD2.getValues());
+			for (Comments_L1 comments : comments_l1) {
+           //保存二级评论信息
+				if(CMD2.getComments() !=null && !CMD2.getComments().isEmpty()){
+					comments.setNum_replies(comments.getNum_replies()+1);
+					Comments_L2 CL2=new Comments_L2();
+					CL2.setComments(CMD2.getComments());
+					CL2.setCdate(date.GetNowDate());
+					CL2.setCommented_id("L1"+"ZZU"+comments.getL1_Cid()+"");
+					CL2.setAccount(user.get(0).getAccount());
+					CL2.setComments_l1(comments);
+					comments.getSetcomments_L2().add(CL2);
+					this.dao.save(CL2);
+					System.out.println("级联保存到二级评论表成功,一级评论的回复数+1");
+					
+				}else{
+			//一级评论点赞数+1
+				comments.setNum_thumb(comments.getNum_thumb()+1);
+				}
+				this.dao.update(comments);
+				System.out.println("一级评论点赞数+1");
+				Successful=true;
+			}
+				}else if(CMD2.getL2_Cid() !=null && !CMD2.getL2_Cid().isEmpty()){
+		//二级评论评二级评论操作
+					List<Comments_L2> comments_l2=dao.query(CMD2.getSql(), CMD2.getValues());
+					for (Comments_L2 comments2 : comments_l2) {
+					//保存二级评论信息	
+						if(CMD2.getComments() !=null && !CMD2.getComments().isEmpty()){
+							 
+							Comments_L2 CL2=new Comments_L2();
+							CL2.setComments(CMD2.getComments());
+							CL2.setCdate(date.GetNowDate());
+							CL2.setAccount(user.get(0).getAccount());							
+							CL2.setCommented_id("L2ZZU"+comments2.getL2_Cid()+"");
+							CL2.setComments_l1(comments2.getComments_l1());
+							
+						this.dao.save(CL2);
+						comments2.setNum_replies(comments2.getNum_replies()+1);
+						System.out.println("保存评论二级评论的评论,被评论的二级评论回复数+1");
+						}else{
+						comments2.setNum_thumb(comments2.getNum_thumb()+1);
+						}
+						this.dao.update(comments2);
+						System.out.println("二级评论点赞成功");
+						Successful=true;
+					}
+				}
+				
+				
+				
+			}else {
+				System.out.println("发表二级评论失败，用户不存在");
+			}
+			return Successful;
+		}
+		
+		
 }
