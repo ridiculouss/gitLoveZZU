@@ -16,9 +16,9 @@ import life.taoyu.modeldriver.OrderAndItems;
 import life.taoyu.modeldriver.Order_Ugoods;
 import life.taoyu.service.TaoyuService;
 import net.sf.json.JSONObject;
-import zzu.struts_xml.TestOO;
 import zzu.util.Getjson;
 import zzu.util.Returndata;
+import zzu.util.TestOO;
 
 @Component(value = "OrderAction")
 @Scope(value = "prototype")

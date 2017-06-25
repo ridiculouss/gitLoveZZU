@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionSupport;
 
 import life.taoyu.modeldriver.OrderAndItems;
-import zzu.struts_xml.TestOO;
+import zzu.util.TestOO;
 @Component(value = "TestAction")
 @Scope(value = "prototype")
 public class TestAction extends ActionSupport{

@@ -38,16 +38,18 @@ public void setInputPath(String value) {
 	inputPath = value;
 }
     
-    private String imageFileName=null;
+    private String imageURL=null;
 
-	public String getImageFileName() {
-		return imageFileName;
-	} 
 
-	public void setImageFileName(String imageFileName) {
-		this.imageFileName = imageFileName;
-	}
 	
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
 	@SuppressWarnings("deprecation")
 	public InputStream getTargetFile() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -57,31 +59,34 @@ public void setInputPath(String value) {
 		String downloadimage=null;
 		if(action.equals("头像")){
 			downloadimage="uploadFiles";
-		}else{downloadimage="goodsuploadImage";}
-		if(imageFileName==null){
-			imageFileName="111.jpg";}
+		}else{downloadimage="goodsuploadImage";
+		}
+		if(imageURL==null){
+			imageURL="111.jpg";}
 		
-		String FilerealPath = realPath + downloadimage + File.separator+ imageFileName;
+		String FilerealPath = realPath + downloadimage + File.separator+ imageURL;
 		 System.out.println("文件下载路径" + FilerealPath);
 		File image= new File(FilerealPath);
 	
 	  
 	   
 	    FileInputStream fis;
+	    
 		boolean b=image.exists();
 		if (b) {
 			System.out.println("文件已找到并发送");
-			fis = new FileInputStream(FilerealPath);
+			fis = new FileInputStream(image);
 			System.out.println("文件size:" + String.valueOf(fis.available() / 1000) + "k");
            
 			
 		} else {
-			FilerealPath = realPath + "uploadFiles" + File.separator + "1.jpg";
-			System.out.println("文件不存在发送默认图片");
-			fis = new FileInputStream(FilerealPath);
+			FilerealPath = realPath + "uploadFiles" + File.separator + "111.jpg";
+			File file=new File(FilerealPath);
 			
+			fis = new FileInputStream(file);
+			System.out.println("文件不存在发送默认图片");
 		}
-		
+		 
 		return fis;
 	}
 	

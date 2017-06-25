@@ -18,8 +18,8 @@ body{
 <center>
 <p>下载测试</p>
 
-<form action="filedownload.action" method="post">
-imageURL:<input type="text"name="imageFileName"/><br/>
+<form action="filedownload" method="post">
+imageURL:<input type="text"name="imageURL"/><br/>
 下载头像还是商品:<input type="text"name="action"/><br/>
 
 <input type="submit" value="提交">

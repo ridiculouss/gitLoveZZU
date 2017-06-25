@@ -1,4 +1,4 @@
-package zzu.struts_xml;
+package zzu.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +10,6 @@ import life.taoyu.entity.OrderItems;
 import life.taoyu.modeldriver.OrderAndItems;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import zzu.util.Getjson;
 
 public class TestOO {
 
