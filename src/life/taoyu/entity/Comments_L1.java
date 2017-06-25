@@ -66,6 +66,12 @@ public class Comments_L1 {
 	public void setNum_thumb(int num_thumb) {
 		this.num_thumb = num_thumb;
 	}
+	@Override
+	public String toString() {
+		return "Comments_L1 [L1_Cid=" + L1_Cid + ", account=" + account + ", comments=" + comments + ", num_replies="
+				+ num_replies + ", Cgoods=" + Cgoods + ", num_thumb=" + num_thumb + ", Cdate=" + Cdate
+				+ ", setcomments_L2=" + setcomments_L2 + "]";
+	}
 
 
 }

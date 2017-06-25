@@ -22,6 +22,7 @@ import life.taoyu.modeldriver.L1_Comments_Modeldriver;
 import life.taoyu.modeldriver.L2_Comments_Modeldriver;
 import life.taoyu.modeldriver.OrderAndItems;
 import life.taoyu.modeldriver.Order_Ugoods;
+import life.taoyu.modeldriver.UComments_L2;
 import life.taoyu.modeldriver.Ucomments;
 import life.taoyu.modeldriver.Ugoods;
 import persionalCenter.dao.Dao;
@@ -375,7 +376,7 @@ public class TaoyuService {
 			values=CMD2.getSessionID();
 			List<User> user=dao.query(sql, values);
 			if(user.size() == 1){
-				
+		
 				if(CMD2.getL1_Cid() !=null && !CMD2.getL1_Cid().isEmpty()){
 		//二级评论评一级评论操作	
 			List<Comments_L1> comments_l1=dao.query(CMD2.getSql(), CMD2.getValues());
@@ -407,9 +408,14 @@ public class TaoyuService {
 					for (Comments_L2 comments2 : comments_l2) {
 					//保存二级评论信息	
 						if(CMD2.getComments() !=null && !CMD2.getComments().isEmpty()){
-							 
+							 //评论内容超过15个字符就截取前15个字符串
+							String strComments=null;
+							if(comments2.getComments().length() > 15){
+							 strComments=comments2.getComments().substring(0, 15);
+							 }else{strComments=comments2.getComments();
+							 }
 							Comments_L2 CL2=new Comments_L2();
-							CL2.setComments(CMD2.getComments());
+							CL2.setComments(CMD2.getComments()+"@:"+strComments);
 							CL2.setCdate(date.GetNowDate());
 							CL2.setAccount(user.get(0).getAccount());							
 							CL2.setCommented_id("L2ZZU"+comments2.getL2_Cid()+"");
@@ -433,6 +439,27 @@ public class TaoyuService {
 				System.out.println("发表二级评论失败，用户不存在");
 			}
 			return Successful;
+		}
+
+		
+//查询二级评论
+		public List<UComments_L2> querycomments(L2_Comments_Modeldriver CMD2) {
+			List<UComments_L2> uc2list=new ArrayList<UComments_L2>();
+			//查出二级评论对象
+			List<Comments_L2> CL2=dao.query(CMD2.getSql(), CMD2.getValues());
+			for (Comments_L2 comments_L2 : CL2) {
+				UComments_L2 uc2=new UComments_L2();
+				//查出用户对象
+				sql="from User where account=?";
+				List<User> userlist=dao.query(sql, comments_L2.getAccount());				
+				sql="from UserInfo where ul_id=?";
+				List<UserInfo> userinfo=dao.query(sql, userlist.get(0).getUid());
+				uc2.setComments_l2(comments_L2);
+				uc2.setUserinfo(userinfo.get(0));
+				uc2list.add(uc2);
+			}
+			return uc2list;
+			
 		}
 		
 		

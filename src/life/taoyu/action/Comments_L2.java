@@ -1,5 +1,7 @@
 package life.taoyu.action;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Scope;
@@ -9,7 +11,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 import life.taoyu.modeldriver.L2_Comments_Modeldriver;
+import life.taoyu.modeldriver.UComments_L2;
 import life.taoyu.service.TaoyuService;
+import zzu.util.Getjson;
 import zzu.util.Returndata;
 
 @Component(value = "comments_L2Action")
@@ -25,6 +29,9 @@ public class Comments_L2 extends ActionSupport implements ModelDriven<L2_Comment
 	
 	@Resource(name = "taoyuService")
 	private TaoyuService taoyuService;
+	
+	@Resource(name = "GetjsonArray")
+	private Getjson jsonarray;
 	@Override
 	public L2_Comments_Modeldriver getModel() {
 		// TODO Auto-generated method stub
@@ -33,6 +40,7 @@ public class Comments_L2 extends ActionSupport implements ModelDriven<L2_Comment
        boolean Successful=false;
 	@Override
 	public String execute() throws NumberFormatException,Exception {
+//发表二级评论		
 		if (CMD2.getAction().equals("postcomments_L2")) {
 			System.out.println("发表二级评论操作!");
 			if (CMD2.getL1_Cid() != null && !CMD2.getL1_Cid().isEmpty()) {
@@ -52,12 +60,19 @@ public class Comments_L2 extends ActionSupport implements ModelDriven<L2_Comment
 				CMD2.setValues(integerValue);
 				Successful=taoyuService.postcommentsL2(CMD2);
 			}
-
+//查询二级评论
 		} else if(CMD2.getAction().equals("querycomments_L2")){
 			System.out.println("查询二级评论操作!");
+			CMD2.setSql("from Comments_L2 where LL_id=?");
+			CMD2.setValues(CMD2.getL1_Cid());
+			List<UComments_L2> uc2list=taoyuService.querycomments(CMD2);
+			jsonarray.getjsonarray(uc2list, "返回二级评论");
 			
+			//返回数据
+			Returndata.returndata(jsonarray.getjsonarray(uc2list, "返回二级评论"));
 		}
 
+		
 //返回数据
 		Returndata.returnboolean(Successful);
 		return null;
