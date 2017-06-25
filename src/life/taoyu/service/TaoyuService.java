@@ -48,7 +48,7 @@ public class TaoyuService {
 	private String sql = null;
 	private String values = null;
 	Serializable id = null;
-	HttpSession Thumbsession = ServletActionContext.getRequest().getSession();
+	
 
 	// 级联保存商品操作
 	public String savegoods(Goods goods) {
