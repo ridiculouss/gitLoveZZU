@@ -42,6 +42,7 @@ action:<input type="text"name="action" value="postcomments_L1"/><br/><br/>
 goods_id:<input type="text"name="goods_id" value="4"/><br/><br/>
 SessionID:<input type="text"name="SessionID"  value="ab658cee-f1bd-4aa4-a7a3-0293a6f9b3b2"/><br/><br/>
 comments:<input type="text"name="comments"  value="发表了一级评论"/><br/><br/>
+
 <input type="submit" value="提交">
 </form>
 <br/>
@@ -55,7 +56,8 @@ l1_Cid:<input type="text"name="L1_Cid" value="1"/><br/><br/>
 l2_Cid:<input type="text"name="L2_Cid" value="1"/><br/><br/>
 SessionID:<input type="text"name="SessionID"  value="ab658cee-f1bd-4aa4-a7a3-0293a6f9b3b2"/><br/><br/>
 comments:<input type="text"name="comments"  value="发表了二级评论"/><br/><br/>
-comments为空就是点赞<br/><br/>
+comments为空时，Thumb为1就是点赞，0是取消<br/><br/>
+Thumb:<input type="text"name="ThumbNum"  value="1"/><br/><br/>
 <input type="submit" value="提交">
 </form>
 <br/>

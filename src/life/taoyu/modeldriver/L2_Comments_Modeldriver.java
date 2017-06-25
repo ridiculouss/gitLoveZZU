@@ -12,7 +12,13 @@ public class L2_Comments_Modeldriver {
 	private String L2_Cid;
 	private String sql;
 	private Object values;
-	
+	private String ThumbNum;//点赞标识，1是点赞，0是取消点赞。
+	public String getThumbNum() {
+		return ThumbNum;
+	}
+	public void setThumbNum(String thumbNum) {
+		ThumbNum = thumbNum;
+	}
 	public String getSql() {
 		return sql;
 	}
