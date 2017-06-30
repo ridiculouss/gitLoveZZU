@@ -16,8 +16,8 @@ import net.sf.json.JSONObject;
 import persionalCenter.entity.UserInfo;
 import persionalCenter.service.UserService;
 
-@Component(value="queryuserinfoAction")
-public class QueryUserInfoAction extends ActionSupport implements ModelDriven<UserInfo> {
+@Component(value="queryuserinfo_action")
+public class QueryUserInfo_action extends ActionSupport implements ModelDriven<UserInfo> {
 
 	/**
 	 * 查询用户信息
@@ -25,9 +25,9 @@ public class QueryUserInfoAction extends ActionSupport implements ModelDriven<Us
 	private static final long serialVersionUID = 1L;
 	
 	//注入service和实体类属性
-			@Resource(name="userService")
+			@Resource(name="UserService")
 			private UserService userService;
-			@Resource(name="userinfo")
+			@Resource(name="UserInfo")
 			private UserInfo userinfo;
 	
 	@Override

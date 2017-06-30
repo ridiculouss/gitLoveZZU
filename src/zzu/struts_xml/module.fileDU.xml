@@ -20,7 +20,7 @@
 
 		
 		 <!-- 单文件上传 -->
-        <action name="upload" class="uploadAction" method="upload">
+        <action name="upload" class="upload" method="upload">
         <interceptor-ref name="myinte"></interceptor-ref>
          <result name="success">fileDownloadAndUpload/upload.jsp</result>
          <result name="input">fileDownloadAndUpload/upload.jsp</result>
@@ -40,6 +40,7 @@
         <param name="inputName">targetFile</param>
         <param name="contentDisposition">filename="${imageURL}"</param>
         <param name="bufferSize">4096</param>
+        <param name="input"></param>
         </result>
         </action>
 	</package>

@@ -57,9 +57,11 @@ public void setInputPath(String value) {
 		String realPath = request.getRealPath("/").substring(0,
 				request.getRealPath("/").lastIndexOf(request.getContextPath().replace("/", "")));
 		String downloadimage=null;
-		if(action.equals("头像")){
+		if(action !=null && action.equals("头像")){
 			downloadimage="uploadFiles";
-		}else{downloadimage="goodsuploadImage";
+		}else if(action !=null && action.equals("商品")){downloadimage="goodsuploadImage";
+		}else{System.out.println("不知道要下载啥图片");
+		downloadimage="uploadFiles";
 		}
 		if(imageURL==null){
 			imageURL="111.jpg";}
@@ -86,7 +88,7 @@ public void setInputPath(String value) {
 			fis = new FileInputStream(file);
 			System.out.println("文件不存在发送默认图片");
 		}
-		 
+		 if(fis == null){System.out.println("返回的IO文件为空");}
 		return fis;
 	}
 	

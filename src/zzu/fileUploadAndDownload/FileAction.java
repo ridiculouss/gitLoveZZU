@@ -26,7 +26,7 @@ import persionalCenter.entity.UserInfo;
 import persionalCenter.service.UserService;
 import zzu.util.Returndata;
 
-@Component(value = "uploadAction")
+@Component(value = "upload")
 @Scope(value = "prototype")
 public class FileAction extends ActionSupport {
 

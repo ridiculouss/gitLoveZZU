@@ -17,10 +17,10 @@ import persionalCenter.entity.User;
 import persionalCenter.entity.UserInfo;
 import zzu.util.GetDate;
 @Transactional
-@Service(value="userService")
+@Service(value="UserService")
 public class UserService {
 
-	@Resource(name="userDao")
+	@Resource(name="user_Dao")
 	private Dao dao;
 	@Resource(name="getdata")
 	private GetDate data;

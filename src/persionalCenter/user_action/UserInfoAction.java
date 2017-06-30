@@ -20,7 +20,7 @@ import persionalCenter.service.UserService;
 
 
 @Transactional
-@Component(value="userinfoAction")
+@Component(value="UserinfoAction")
 @Scope(value="prototype")
 public class UserInfoAction extends ActionSupport implements ModelDriven<UserInfo>{
 
@@ -32,7 +32,7 @@ public class UserInfoAction extends ActionSupport implements ModelDriven<UserInf
 	//注入service和实体类属性
 		@Resource(name="userService")
 		private UserService userService;
-		@Resource(name="userinfo")
+		@Resource(name="UserInfo")
 		private UserInfo userinfo;
 		
 	@Override

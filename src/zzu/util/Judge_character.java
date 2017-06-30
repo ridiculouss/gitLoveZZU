@@ -4,7 +4,7 @@ public class Judge_character {
 
 	public boolean character(String str){
 		
-		if(str.matches("[0-9]+")&&str.length()==11){
+		if(str !=null && str.matches("[0-9]+")&&str.length()==11){
 		
 		return true;
 		}else{

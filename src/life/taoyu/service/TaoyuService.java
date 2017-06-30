@@ -37,7 +37,7 @@ import zzu.util.GetDate;
 
 public class TaoyuService {
 
-	@Resource(name = "userDao")
+	@Resource(name = "user_Dao")
 	private Dao dao;
 	@Resource(name = "taoyuDao")
 	private Dao_taoyu TDao;

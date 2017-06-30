@@ -65,5 +65,6 @@
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/struts2-json-plugin-2.3.24.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/struts2-spring-plugin-2.3.24.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/xwork-core-2.3.24.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-2.6.2.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

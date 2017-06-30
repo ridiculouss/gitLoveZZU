@@ -12,7 +12,7 @@ import life.taoyu.entity.Order;
 
 
 
-@Service(value="user")
+@Service(value="User")
 public class User {
 
 	//”√ªß Ù–‘

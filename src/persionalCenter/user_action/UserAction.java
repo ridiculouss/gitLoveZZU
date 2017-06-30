@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import javax.annotation.Resource;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
@@ -39,7 +40,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	@Resource(name="userService")
 	private UserService userService;
 	//注入User对象
-	@Resource(name="user")
+	@Resource(name="User")
 	private User user;
 	
 	//模型驱动封装数据
@@ -52,10 +53,12 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	public String execute() throws Exception {
 		Judge_character j=new Judge_character();
 		boolean isSuccessful=false;
+		String info=null;
 		if(j.character(user.getPhone())){
 		System.out.println("UserAction层User"+user.toString());
 		isSuccessful=userService.save(user);
-		}else{System.out.println("用户手机号不合法:"+isSuccessful);}
+		}else{System.out.println("用户手机号不合法:"+isSuccessful);
+		info="手机号必须是11位";}
 		
 		
 	//返回数据
@@ -66,6 +69,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		JSONObject json = new JSONObject();   
 		
     	 json.put("isSuccessful", isSuccessful);
+    	 json.put("info", info);
           System.out.println("UserAction层json"+json);
         
      PrintWriter out=response.getWriter();    	
@@ -76,4 +80,23 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		return NONE;
 	}
 
+	
+	 
+//	 
+//	    public void validate()
+//	    {
+//	        HttpSession session = ServletActionContext.getRequest().getSession();
+//	        
+//	        String checkCode2 = (String)session.getAttribute("checkCode");
+//	        if(user.getVerification_code() ==null || checkCode2 ==null ){
+//	        	 this.addActionError("请输入验证码！");
+//	        }
+//	        if(user.getVerification_code() !=null && !user.getVerification_code().equals(checkCode2))
+//	        {
+//	            this.addActionError("输入的验证码不正确，请重新输入！");
+//	        }
+//	    }
+
+	
+	
 }

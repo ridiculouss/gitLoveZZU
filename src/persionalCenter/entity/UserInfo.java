@@ -2,7 +2,7 @@ package persionalCenter.entity;
 
 import org.springframework.stereotype.Component;
 
-@Component(value="userinfo")
+@Component(value="UserInfo")
 public class UserInfo {
 
 	private Integer info_id;

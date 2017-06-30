@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 
 
 
-@Repository(value="userDao")
+@Repository(value="user_Dao")
 public class Userdao implements Dao{
 
 	@Resource(name="hibernateTemplate")
