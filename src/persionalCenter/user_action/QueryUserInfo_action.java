@@ -25,7 +25,7 @@ public class QueryUserInfo_action extends ActionSupport implements ModelDriven<U
 	private static final long serialVersionUID = 1L;
 	
 	//注入service和实体类属性
-			@Resource(name="User_Service")
+			@Resource(name="UserService")
 			private UserService userService;
 			@Resource(name="UserInfo")
 			private UserInfo userinfo;

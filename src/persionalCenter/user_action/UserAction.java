@@ -37,7 +37,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	 */
 	private static final long serialVersionUID = 1L;
 	//注入UserService对象
-	@Resource(name="User_Service")
+	@Resource(name="userService")
 	private UserService userService;
 	//注入User对象
 	@Resource(name="User")

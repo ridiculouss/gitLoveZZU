@@ -19,7 +19,7 @@ body{
 <body>
 <center>
 <p>单文件上传测试</p>
-<s:form action="imageupload" namespace="/"
+<s:form action="upload" namespace="/"
  enctype="multipart/form-data"
  method="post"  theme="simple">
  <s:token></s:token>

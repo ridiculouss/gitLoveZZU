@@ -20,7 +20,7 @@
 
 		
 		 <!-- 单文件上传 -->
-        <action name="imageupload" class="imageupload" method="upload">
+        <action name="upload" class="upload" method="upload">
         <interceptor-ref name="myinte"></interceptor-ref>
          <result name="success">fileDownloadAndUpload/upload.jsp</result>
          <result name="input">fileDownloadAndUpload/upload.jsp</result>
@@ -34,7 +34,7 @@
          
         </action>
         <!-- 文件下载 -->
-        <action name="imagefiledownload" class="imagefiledownload">
+        <action name="filedownload" class="filedownload">
          <result name="success" type="stream">
         <param name="contentType">application/jpg/jpeg/png/svg/swf/jpeg2000</param>
         <param name="inputName">targetFile</param>

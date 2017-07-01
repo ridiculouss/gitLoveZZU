@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@Component(value = "imagefiledownload")
+@Component(value = "filedownload")
 @Scope(value="prototype")
 public class FileDownload extends ActionSupport {
  

@@ -26,14 +26,14 @@ import persionalCenter.entity.UserInfo;
 import persionalCenter.service.UserService;
 import zzu.util.Returndata;
 
-@Component(value = "imageupload")
+@Component(value = "upload")
 @Scope(value = "prototype")
 public class FileAction extends ActionSupport {
 
 	/**
 	 * 
 	 */
-	@Resource(name = "User_Service")
+	@Resource(name = "userService")
 	private UserService userService;
 
 	private static final long serialVersionUID = 1L;

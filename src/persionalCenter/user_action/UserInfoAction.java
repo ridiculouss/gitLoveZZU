@@ -30,7 +30,7 @@ public class UserInfoAction extends ActionSupport implements ModelDriven<UserInf
 	private static final long serialVersionUID = 1L;
 
 	//注入service和实体类属性
-		@Resource(name="User_Service")
+		@Resource(name="userService")
 		private UserService userService;
 		@Resource(name="UserInfo")
 		private UserInfo userinfo;
