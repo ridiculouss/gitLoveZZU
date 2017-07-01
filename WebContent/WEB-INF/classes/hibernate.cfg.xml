@@ -34,7 +34,13 @@
 <mapping class="com.zzu.entity.SocietyNews"/>
 <mapping class="com.zzu.entity.Advisory"/>
 <mapping class="com.zzu.entity.SchoolNewsSubjectResult"/>
-<mapping class="persionalCenter.confessionWall.entity.BareHeart"/>
+<mapping resource="life/treeHole/entity/treehole.hbm.xml"/>
+<mapping resource="life/treeHole/entity/treeholeComment.hbm.xml"/>
+<mapping resource="com/zzu/entity/user.hbm.xml"/>
+<mapping resource="com/zzu/entity/userinfo.hbm.xml"/>
+<mapping resource="com/zzu/entity/carousel.hbm.xml"/>
+<mapping resource="com/zzu/entity/navigation.hbm.xml"/>
+<mapping resource="com/zzu/entity/society.hbm.xml"/>
 
 	<!-- 引入实体类映射文件 -->
 <mapping resource="persionalCenter/entity/user.hbm.xml"></mapping>
@@ -47,6 +53,9 @@
 <mapping resource="life/taoyu/entity/comments_L1.hbm.xml"></mapping>
 <mapping resource="life/taoyu/entity/comments_L2.hbm.xml"></mapping>
 <mapping resource="life/taoyu/entity/cart.hbm.xml"></mapping>
+
+
+<!-- 引入树洞映射文件 -->
 
 
 	</session-factory>

@@ -1,20 +1,14 @@
 package life.treeHole.entity;
 
 import java.util.HashSet;
+
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.*;
+
 
 import org.springframework.stereotype.Component;
 
-//@Entity
-//@Table(name="t_treeHole")
+
 @Component(value="treeHole")
 public class TreeHole {
 
