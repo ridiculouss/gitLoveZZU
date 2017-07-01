@@ -34,7 +34,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<User> {
 	private static final long serialVersionUID = 1L;
 
 	//◊¢»Î Ù–‘
-	@Resource(name="UserService")
+	@Resource(name="User_Service")
 	private UserService userService;
 	
 	@Resource(name="User")
