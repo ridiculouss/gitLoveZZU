@@ -40,7 +40,7 @@
         <param name="inputName">targetFile</param>
         <param name="contentDisposition">filename="${imageURL}"</param>
         <param name="bufferSize">4096</param>
-        <param name="input"></param>
+        <param name="input">error.html</param>
         </result>
         </action>
 	</package>
