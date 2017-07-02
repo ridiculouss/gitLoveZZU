@@ -23,20 +23,31 @@
 	
 <!-- 实体类类路径 -->
 <mapping class="life.parTime.entity.PartTimeJob"/>
+
 <mapping class="life.topicCircle.entity.Subject"/>
 <mapping class="life.topicCircle.entity.Topic"/>
 <mapping class="life.topicCircle.entity.TopicContent"/>
 <mapping class="life.topicCircle.entity.SubjectPraise"/>
 <mapping class="life.topicCircle.entity.TopicPraise"/>
 <mapping class="life.topicCircle.entity.TopicContentPraise"/>
+
 <mapping class="life.treeHole.entity.TreeHolePraise"/>
 <mapping class="life.treeHole.entity.TreeHoleCommentPraise"/>
+<mapping resource="life/treeHole/entity/treehole.hbm.xml"/>
+<mapping resource="life/treeHole/entity/treeholeComment.hbm.xml"/>
+
 <mapping class="com.zzu.entity.SocietyNews"/>
 <mapping class="com.zzu.entity.Advisory"/>
 <mapping class="com.zzu.entity.SchoolNewsSubjectResult"/>
-<mapping class="persionalCenter.confessionWall.entity.BareHeart"/>
 
-	<!-- 引入实体类映射文件 -->
+<mapping resource="com/zzu/entity/user.hbm.xml"/>
+<mapping resource="com/zzu/entity/userinfo.hbm.xml"/>
+<mapping resource="com/zzu/entity/carousel.hbm.xml"/>
+<mapping resource="com/zzu/entity/navigation.hbm.xml"/>
+<mapping resource="com/zzu/entity/society.hbm.xml"/>
+
+<mapping resource="life/playTogether/entity/activity.hbm.xml" />
+<!-- 引入用户映射文件 -->
 <mapping resource="persionalCenter/entity/user.hbm.xml"></mapping>
 <mapping resource="persionalCenter/entity/userinfo.hbm.xml"></mapping>
 
@@ -47,6 +58,9 @@
 <mapping resource="life/taoyu/entity/comments_L1.hbm.xml"></mapping>
 <mapping resource="life/taoyu/entity/comments_L2.hbm.xml"></mapping>
 <mapping resource="life/taoyu/entity/cart.hbm.xml"></mapping>
+
+
+
 
 
 	</session-factory>

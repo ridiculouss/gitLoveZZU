@@ -17,7 +17,7 @@ import persionalCenter.entity.User;
 import persionalCenter.entity.UserInfo;
 import zzu.util.GetDate;
 @Transactional
-@Service(value="UserService")
+@Service(value="User_Service")
 public class UserService {
 
 	@Resource(name="user_Dao")

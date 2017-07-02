@@ -15,7 +15,7 @@
 		 
 		 <result name="input">/persionalCenter/user/user_login.jsp</result>
 		</action>
-		<action name="userinfoAction" class="userinfoAction"></action>
+		<action name="userinfoAction" class="UserinfoAction"></action>
 		<action name="queryuserinfo_action" class="queryuserinfo_action"></action>
 		
 		<action name="creatimage" class="creatimage">
