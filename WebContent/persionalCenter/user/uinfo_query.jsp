@@ -17,7 +17,7 @@ body{
 <body>
 <center>
 <p>查询用户信息</p>
-<form action="queryuserinfo_action" method="post">
+<form action="queryuserinfoAction" method="post">
 phone:<input type="text"name="phone"/><br/><br/>
 
 <input type="submit" value="提交">

@@ -2,6 +2,7 @@ package zzu.util;
 
 public class Judge_character {
 
+	//检查是否为11位
 	public boolean character(String str){
 		
 		if(str !=null && str.matches("[0-9]+")&&str.length()==11){

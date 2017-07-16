@@ -1,6 +1,6 @@
 package persionalCenter.confessionWall.entity;
 
-import com.zzu.entity.UserInfo;
+import persionalCenter.entity.UserInfo;
 
 public class BHCard {
 

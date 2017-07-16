@@ -9,7 +9,7 @@
 		 -->
       
         
-        <action name="filedownload" class="filedownload">
+        <action name="filedownload2" class="filedownload">
          <param name="inputPath">\uploadFiles\aa.jpg</param>
          <result name="success" type="stream">
         <param name="contentType">application/jpg/rar</param>

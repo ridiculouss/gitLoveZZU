@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width = device-width,inital-scale=1">
 <link rel="stylesheet" type="text/css" href="css/css.css"/>
-<title>管理员页面</title>
+<title>接口测试页面</title>
 
 
 </head>
@@ -47,7 +47,8 @@ filter:Alpha(opacity=60); background:#fff; /*　使用IE专属滤镜实现IE背�
 <a href="fileDownloadAndUpload/upload.jsp"  target="main1">上传</a>&nbsp;
 <a href="fileDownloadAndUpload/download.jsp"  target="main1">下载</a>&nbsp;
 
-<a href="persionalCenter/user/uinfo_change.jsp" target="main1">更新用户信息</a>
+<a href="persionalCenter/user/uinfo_change.jsp" target="main1">更新用户信息</a>&nbsp;
+<a href="adminlogin.jsp" >管理员</a>
 <br/>
 <a href="persionalCenter/user/uinfo_query.jsp"  target="main1">查询用户信息</a>&nbsp;
 
