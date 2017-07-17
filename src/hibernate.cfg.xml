@@ -40,13 +40,13 @@
 <mapping class="com.zzu.entity.Advisory"/>
 <mapping class="com.zzu.entity.SchoolNewsSubjectResult"/>
 
-<mapping resource="com/zzu/entity/user.hbm.xml"/>
-<mapping resource="com/zzu/entity/userinfo.hbm.xml"/>
+
 <mapping resource="com/zzu/entity/carousel.hbm.xml"/>
 <mapping resource="com/zzu/entity/navigation.hbm.xml"/>
 <mapping resource="com/zzu/entity/society.hbm.xml"/>
-
 <mapping resource="life/playTogether/entity/activity.hbm.xml" />
+
+
 <!-- 引入用户映射文件 -->
 <mapping resource="persionalCenter/entity/user.hbm.xml"></mapping>
 <mapping resource="persionalCenter/entity/userinfo.hbm.xml"></mapping>

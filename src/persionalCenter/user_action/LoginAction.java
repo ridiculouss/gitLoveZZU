@@ -1,10 +1,10 @@
 package persionalCenter.user_action;
 
 import java.io.PrintWriter;
-
-
+import java.util.Enumeration;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -20,7 +20,9 @@ import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONObject;
 import persionalCenter.entity.User;
 import persionalCenter.service.UserService;
+import zzu.util.JudgePhone;
 import zzu.util.Judge_character;
+import zzu.util.Returndata;
 
 
 @Transactional
@@ -71,22 +73,20 @@ public class LoginAction extends ActionSupport implements ModelDriven<User> {
 			System.out.println("客户端传来的手机号和SessionID数据都为空");}
 			}
 	
-	//返回数据
-		HttpServletResponse response= ServletActionContext.getResponse();
-		//如果中文返回出现？？字符，这表明没有加response.setCharacterEncoding("UTF-8");这句话。
-      //如果返回的中文是“烇湫”这种乱码，说明浏览器的解析问题，应该检查下是否忘加response.setHeader("Content-type", "text/html;charset=UTF-8");这句话
-		response.setHeader("Content-type", "text/html;charset=UTF-8");   
-		response.setCharacterEncoding("UTF-8"); 
+		
+		
+	
+
+		//返回数据
+		
 		
 		JSONObject json = new JSONObject();   
-    	 json.put("SessionID", SessionID);    	
-    	 json.put("info", info);    	
-          System.out.println("LoginAction层json"+json);
-        
-         PrintWriter out=response.getWriter();    	
-    	   out.println(json);
-    	   out.flush();
-    	   out.close();
+      	 json.put("SessionID", SessionID);    	
+   	     json.put("info", info);    	
+         System.out.println("LoginAction层json"+json);
+		Returndata.returndata(json);
+
+	
 		
 		return null;
 	}

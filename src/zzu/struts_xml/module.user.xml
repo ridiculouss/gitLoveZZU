@@ -7,6 +7,7 @@
 		<!-- class属性里面不写action全路径了，因为写，action对象创建两次
 			写spring配置的action的bean的id值
 		 -->
+	 
 		 
 		<action name="userAction" class="userAction">
 		 <result name="input">/persionalCenter/user/user_register.jsp</result>
@@ -16,7 +17,7 @@
 		 <result name="input">/persionalCenter/user/user_login.jsp</result>
 		</action>
 		<action name="userinfoAction" class="UserinfoAction"></action>
-		<action name="queryuserinfo_action" class="queryuserinfo_action"></action>
+		<action name="queryuserinfoAction" class="queryuserinfo_action"></action>
 		
 		<action name="creatimage" class="creatimage">
 		 <result name="success" type="stream">
@@ -26,8 +27,14 @@
 		</action>
             
               <action name="loginValidateAction" class="com.xiaoluo.action.LoginValidateAction">
-                <result name="success">/success.jsp</result>
+                <result name="success" >/success.jsp</result>
                 <result name="input">/login.jsp</result>
+            </action>
+            <!-- 管理员 -->
+              <action name="adminloginAction_*" class="adminlogin" method="{1}">
+                
+                <result name="success" >/WEB-INF/admin/admin.jsp</result>
+                <result name="input" >adminlogin.jsp</result>
             </action>
 		
 	</package>

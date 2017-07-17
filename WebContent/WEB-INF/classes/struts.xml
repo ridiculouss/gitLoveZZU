@@ -6,6 +6,7 @@
 	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
 	<constant name="struts.multipart.saveDir" value="/tmp"/>
 	<constant name="struts.custom.i18n.resources" value="i18n"></constant>
+	
 	<!-- 用户模块 -->
 	<include file="zzu/struts_xml/module.user.xml"></include>
 	<!-- 文件上传下载模块 -->
