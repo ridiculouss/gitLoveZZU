@@ -40,8 +40,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	@Resource(name="User_Service")
 	private UserService userService;
 	//注入User对象
-	@Resource(name="User")
-	private User user;
+	
+	private User user=new User();
 	
 	//模型驱动封装数据
 	@Override
@@ -82,7 +82,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 
 	
 	 
-//	 
+	 
 //	    public void validate()
 //	    {
 //	        HttpSession session = ServletActionContext.getRequest().getSession();

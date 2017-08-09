@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <script type="text/javascript">
 function out() {
-	 window.location.href="adminloginAction_loginout";
+	 window.location.href="adminAction_loginout";
 }
 
 </script>
@@ -29,17 +29,25 @@ if(s!=null && !s.equals("已登录")){
 }
 %>
 <div class="top"> 
-top
+ <a style="width:10%;height:5%;" ><font style="background-color:#cf6d77;" color="#FDF5E6" size="15">爱上郑大管理界面</font></a>
 
 <div class="top-right"><br/>
 
-<%=session.getAttribute("admin")%>
+<font  size="5" style="background-color:#cf6d77; ">管理员:</font><font  size="5"><%=session.getAttribute("admin")%></font>
 &nbsp;&nbsp;
-<a  style=background-color:#cf6d77; href="javascript:out();">退出</a>
+<font  size="6"><a  style=background-color:#cf6d77; href="javascript:out();">退出</a></font>
 </div>
 </div>
-<div class="left">left</div>
-<div class="right">right</div>
-<div class="bottom" >bottom</div>
+
+
+
+<div class="right">
+<iframe src="admin/auditGoods.jsp"width="100%" height="99%" name="right" id="right"scrolling="auto" frameborder="0"></iframe>
+
+</div>
+<div class="bottom" >
+<font  size="6.5"><a style=background-color:#cf6d77;" href="admin/auditGoods.jsp"  target="right">搜索商品</a></font>&nbsp;
+
+</div>
 </body>
 </html>

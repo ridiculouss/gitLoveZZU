@@ -56,6 +56,7 @@ filter:Alpha(opacity=60); background:#fff; /*　使用IE专属滤镜实现IE背�
 <a href="life/taoyu/querygoods.jsp"  target="main1">查询商品</a>&nbsp;
 <a href="life/taoyu/comments.jsp"  target="main1">商品评论</a>&nbsp;
 <a href="life/taoyu/cart.jsp"  target="main1">购物车</a>&nbsp;
+<a href="life/taoyu/order.jsp"  target="main1">订单</a>&nbsp;
 
 </div>
 

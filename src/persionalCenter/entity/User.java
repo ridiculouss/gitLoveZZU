@@ -1,7 +1,8 @@
 package persionalCenter.entity;
 
 import java.util.HashSet;
-
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -68,7 +69,8 @@ public class User {
 	}
 
 
-	public Set<Goods> getSetgoods() {
+
+		public Set<Goods> getSetgoods() {
 		return setgoods;
 	}
 	public void setSetgoods(Set<Goods> setgoods) {

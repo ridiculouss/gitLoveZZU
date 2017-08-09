@@ -16,18 +16,18 @@ public class TestOO {
 	
 	public static OrderAndItems GetJsonObject(){
 		Order order = new Order();
-		order.setBuyerOrseller("buyer");
+		
 		order.setName("韩伟其");
 		order.setAddress("郑州");
 		order.setPhone("15639066181");
 		
 
 		OrderItems oi = new OrderItems();
-		oi.setGoods_id(1);
+		oi.setGoods_id(61);
 		oi.setCount(1);
 
 		OrderItems oiw = new OrderItems();
-		oiw.setGoods_id(2);
+		oiw.setGoods_id(62);
 		oiw.setCount(2);
 
 		List<OrderItems> oilist=new ArrayList<OrderItems>();
@@ -35,13 +35,12 @@ public class TestOO {
 		oilist.add(oiw);
 		
 		OrderAndItems OAI=new OrderAndItems();
-		OAI.setAction("查询订单");
-		OAI.setSessionID("878eda24-f818-4599-b5e9-eca41de2664f");
+		OAI.setAction("生成订单");
+		OAI.setSessionID("36620df2-d1c0-4a23-b41d-3e46415a4784");
 		OAI.setOrderData(order);
 		OAI.setOrderItemsData(oilist);
 		
-		Getjson getjson=new Getjson();
-		JSONObject JsonOrder=getjson.getjsonobject(OAI);
+		
 	
 		
 	

@@ -1,8 +1,10 @@
-package zzu.util;
+package zzu.fileUploadAndDownload;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import zzu.util.Panduanstr;
 
 public class FileDelete {
 
@@ -13,7 +15,8 @@ public class FileDelete {
 	
 	Panduanstr p=new Panduanstr();
 
-	public String delete(String realPath,String oldimages, String[] DNames) throws Exception {//String oldimage:数据库中取出来的图片名。String[] deleted:前端传来的指定要删除的图片名。
+	public String delete(String realPath,String oldimages, String[] DNames) throws Exception {
+		//String oldimage:数据库中取出来的图片名。String[] deleted:前端传来的指定要删除的图片名。
 		
 		System.out.println("执行删除操作");
 		String[] olds=null;
@@ -48,7 +51,7 @@ public class FileDelete {
 			boolean isSuccesssful=false;
 			int num=0;
 			for (int i = 0; i < DNames.length; i++) {
-				File f = new File(realPath + "goodsuploadImage" + "\\" + DNames[i]);
+				File f = new File(realPath + DNames[i]);
 
 				if (f.exists()) {
 					System.out.println("查到已有图片开始删除操作：" + f.getAbsoluteFile());

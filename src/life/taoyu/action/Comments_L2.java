@@ -24,14 +24,14 @@ public class Comments_L2 extends ActionSupport implements ModelDriven<L2_Comment
 	 * 二级评论(一级评论的评论)，查，存，修
 	 */
 	private static final long serialVersionUID = 1L;
-	@Resource(name = "CommentsL2_Modeldriver")
-	private L2_Comments_Modeldriver CMD2;
+	
+	private L2_Comments_Modeldriver CMD2=new L2_Comments_Modeldriver();
 	
 	@Resource(name = "taoyuService")
 	private TaoyuService taoyuService;
 	
-	@Resource(name = "GetjsonArray")
-	private Getjson jsonarray;
+	
+	private Getjson jsonarray=new Getjson();
 	@Override
 	public L2_Comments_Modeldriver getModel() {
 		// TODO Auto-generated method stub
@@ -40,6 +40,7 @@ public class Comments_L2 extends ActionSupport implements ModelDriven<L2_Comment
        boolean Successful=false;
 	@Override
 	public String execute() throws NumberFormatException,Exception {
+		System.out.println(CMD2);
 //发表二级评论		
 		if (CMD2.getAction().equals("postcomments_L2")) {
 			System.out.println("发表二级评论操作!");

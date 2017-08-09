@@ -12,12 +12,12 @@ public class Goods {
 	private Integer Goods_id ;//商品id
 	private String Gtype;// 商品分类
 	private String Gname;//  商品名称
-	private String Ggrade;// 几年级用品
+	private String Gcampus;// 校区
 	private String Gdescribe;//商品描述
 	private String Gprice;// 商品价格
 	private String Gimage;//商品图片
-	private String Gthumb;//点赞数
-	private String Gcomments;//评论数
+	
+	private Integer Gcomments;//评论数
 	private String Gsearch;//用于搜索的字段
 	private String Gdate;//商品日期
     
@@ -29,20 +29,27 @@ public class Goods {
 	public void setSetcomments_L1(Set<Comments_L1> setcomments_L1) {
 		this.setcomments_L1 = setcomments_L1;
 	}
-	public String getGthumb() {
-		return Gthumb;
-	}
-	public void setGthumb(String gthumb) {
-		Gthumb = gthumb;
-	}
-	public String getGcomments() {
+	
+
+  
+	
+
+
+
+
+	public Integer getGcomments() {
 		return Gcomments;
 	}
-	public void setGcomments(String gcomments) {
+	public void setGcomments(Integer gcomments) {
 		Gcomments = gcomments;
 	}
 
-  
+
+
+
+
+
+
 	private User user;
     private String SessionID;
 	public String getSessionID() {
@@ -92,11 +99,12 @@ public class Goods {
 	public void setGname(String gname) {
 		Gname = gname;
 	}
-	public String getGgrade() {
-		return Ggrade;
+
+	public String getGcampus() {
+		return Gcampus;
 	}
-	public void setGgrade(String ggrade) {
-		Ggrade = ggrade;
+	public void setGcampus(String gcampus) {
+		Gcampus = gcampus;
 	}
 	public String getGdescribe() {
 		return Gdescribe;
@@ -119,9 +127,9 @@ public class Goods {
 	}
 	@Override
 	public String toString() {
-		return "Goods [Goods_id=" + Goods_id + ", Gtype=" + Gtype + ", Gname=" + Gname + ", Ggrade=" + Ggrade
-				+ ", Gdescribe=" + Gdescribe + ", Gprice=" + Gprice + ", Gimage=" + Gimage + ", Gthumb=" + Gthumb
-				+ ", Gcomments=" + Gcomments + ", Gsearch=" + Gsearch + ", Gdate=" + Gdate + "]";
+		return "Goods [Goods_id=" + Goods_id + ", Gtype=" + Gtype + ", Gname=" + Gname + ", Gcampus=" + Gcampus
+				+ ", Gdescribe=" + Gdescribe + ", Gprice=" + Gprice + ", Gimage=" + Gimage + 
+				", Gcomments=" + Gcomments + ", Gsearch=" + Gsearch + ", Gdate=" + Gdate + "]";
 	}
 
 

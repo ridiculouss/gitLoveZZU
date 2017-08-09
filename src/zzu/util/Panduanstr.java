@@ -10,17 +10,18 @@ public class Panduanstr {
 	
 	
 	public String pinjie(List<String> imageurl){
-		String URL="";
+		StringBuilder URL = new StringBuilder();
 		 System.out.println("图片数量:"+imageurl.size()+",开始拼接");
 		 for(int s=0;s<imageurl.size();s++){
-			 if(imageurl.get(s) !=null){
-		 	          String o= (String) imageurl.get(s);
-		 	           o+="ZZU";
-		 	           URL+=o;
+			 if(imageurl.get(s) !=null && !imageurl.get(s).equals("")){
+		 	         
+		 	           URL.append(imageurl.get(s));
+		 	           URL.append("ZZU");
 			 }
 		 }
 		 System.out.println(URL);
-		return URL;
+		 
+		return URL.toString();
 		
 	}
 	public String[] fenli(String URL){

@@ -22,7 +22,7 @@ body{
 SessionID:<input type="text"name="SessionID"/><br/><br/>
 Gtype:<input type="text"name="Gtype"/><br/><br/>
 Gname:<input type="text"name="Gname"/><br/><br/>
-Ggrade:<input type="text"name="Ggrade"/><br/><br/>
+Gcampus:<input type="text"name="Gcampus"/><br/><br/>
 Gimage:<input type="text"name="Gimage"/><br/><br/>
 Gdescribe:<input type="text"name="Gdescribe"/><br/><br/>
 Gprice:<input type="text"name="Gprice"/><br/><br/>

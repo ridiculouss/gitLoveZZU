@@ -12,6 +12,15 @@ public class OrderAndItems {
 	private String Action;
 	private String SessionID;
 	private Order OrderData;
+	private String StrOrderData;
+	private String orderID;
+	public String getOrderID() {
+		return orderID;
+	}
+	public void setOrderID(String orderID) {
+		this.orderID = orderID;
+	}
+	private List<String> StrOrderItemsData;
 	private List<OrderItems> OrderItemsData;
 	public String getAction() {
 		return Action;
@@ -34,13 +43,26 @@ public class OrderAndItems {
 	public List<OrderItems> getOrderItemsData() {
 		return OrderItemsData;
 	}
+	
+	public String getStrOrderData() {
+		return StrOrderData;
+	}
+	public void setStrOrderData(String strOrderData) {
+		StrOrderData = strOrderData;
+	}
+	public List<String> getStrOrderItemsData() {
+		return StrOrderItemsData;
+	}
+	public void setStrOrderItemsData(List<String> strOrderItemsData) {
+		StrOrderItemsData = strOrderItemsData;
+	}
 	public void setOrderItemsData(List<OrderItems> orderItemsData) {
 		OrderItemsData = orderItemsData;
 	}
 	@Override
 	public String toString() {
 		return "OrderAndItems [Action=" + Action + ", SessionID=" + SessionID + ", OrderData=" + OrderData
-				+ ", OrderItemsData=" + OrderItemsData + "]";
+				+ ", orderID=" + orderID + ", OrderItemsData=" + OrderItemsData + "]";
 	}
 
 

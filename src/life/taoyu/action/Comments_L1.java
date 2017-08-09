@@ -27,11 +27,11 @@ public class Comments_L1 extends ActionSupport implements ModelDriven<L1_Comment
 	private static final long serialVersionUID = 1L;
 	@Resource(name = "taoyuService")
 	private TaoyuService taoyuService;
-	@Resource(name = "GetjsonArray")
-	private Getjson jsonarray;
+	
+	private Getjson jsonarray =new Getjson();
 
-	@Resource(name = "CommentsL1_Modeldriver")
-	private L1_Comments_Modeldriver CMD;
+	
+	private L1_Comments_Modeldriver CMD =new L1_Comments_Modeldriver();
 
 	@Override
 	public L1_Comments_Modeldriver getModel() {
@@ -41,6 +41,7 @@ public class Comments_L1 extends ActionSupport implements ModelDriven<L1_Comment
 
 	@Override
 	public String execute() throws Exception {
+		System.out.println(CMD);
 		JSONObject comments = null;
 //查询一级评论
 		if (CMD.getAction().equals("querycomments_L1")) {

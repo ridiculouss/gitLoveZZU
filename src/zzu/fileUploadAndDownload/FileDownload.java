@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InterruptedIOException;
+import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +20,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class FileDownload extends ActionSupport {
  
 	/**
-	 * 
+	 * 文件下载
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -52,6 +53,8 @@ public void setInputPath(String value) {
 
 	@SuppressWarnings("deprecation")
 	public InputStream getTargetFile() throws IOException {
+		action=URLDecoder.decode(action,"UTF-8");
+		System.out.println("action:"+action);
 		HttpServletRequest request = ServletActionContext.getRequest();
 		
 		String realPath = request.getRealPath("/").substring(0,
@@ -60,19 +63,20 @@ public void setInputPath(String value) {
 		if(action !=null && action.equals("头像")){
 			downloadimage="uploadFiles";
 		}else if(action !=null && action.equals("商品")){downloadimage="goodsuploadImage";
-		}else{System.out.println("不知道要下载啥图片");
+		}else{System.err.println("没有发来要下载哪个文件夹的图片，默认是头像");
 		downloadimage="uploadFiles";
 		}
-		if(imageURL==null){
-			imageURL="111.jpg";}
-		
+		if(imageURL==null || imageURL.equals("")){
+			imageURL="111.jpg";
+			System.err.println("要下载的文件名为空，返回默认图片");}
+		System.out.println("图片名:"+imageURL);
 		String FilerealPath = realPath + downloadimage + File.separator+ imageURL;
 		 System.out.println("文件下载路径" + FilerealPath);
 		File image= new File(FilerealPath);
 	
 	  
 	   
-	    FileInputStream fis;
+	    FileInputStream fis=null;
 	    
 		boolean b=image.exists();
 		if (b) {
@@ -88,8 +92,7 @@ public void setInputPath(String value) {
 			fis = new FileInputStream(file);
 			System.out.println("文件不存在发送默认图片");
 		}
-		 if(fis == null){System.out.println("返回的IO文件为空");}
-		return fis;
+		 return fis;
 	}
 	
 

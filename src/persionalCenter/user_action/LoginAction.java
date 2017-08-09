@@ -39,8 +39,8 @@ public class LoginAction extends ActionSupport implements ModelDriven<User> {
 	@Resource(name="User_Service")
 	private UserService userService;
 	
-	@Resource(name="User")
-	private User user;
+	
+	private User user=new User();
 	
 	@Override
 	public User getModel() {

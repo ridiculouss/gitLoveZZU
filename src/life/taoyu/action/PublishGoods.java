@@ -25,8 +25,8 @@ public class PublishGoods extends ActionSupport implements ModelDriven<Goods> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Resource(name = "goods")
-	private Goods goods;
+	
+	private Goods goods=new Goods();
 	@Resource(name = "taoyuService")
 	private TaoyuService taoyuService;
 
@@ -36,7 +36,7 @@ public class PublishGoods extends ActionSupport implements ModelDriven<Goods> {
 		return goods;
 	}
 
-	@Override
+	@Override//保存新发布的商品
 	public String execute() throws Exception {
 		boolean isSuccessful = false;
 		String goods_id=null;
@@ -44,7 +44,12 @@ public class PublishGoods extends ActionSupport implements ModelDriven<Goods> {
 		System.out.println("商品信息对象:" + goods.toString());
 		if (goods.getSessionID() != null) {
 			goods_id = taoyuService.savegoods(goods);
-            if(goods_id !=null){isSuccessful=true;}
+            if(goods_id !=null){
+            	//执行一次更新商品新发布商品的id到search字段
+                Goods g=	new Goods();
+                 g.setGoods_id(Integer.valueOf(goods_id));
+            	taoyuService.updateGoods(g);
+            	isSuccessful=true;}
 			
 			// 返回数据
 			HttpServletResponse response = ServletActionContext.getResponse();

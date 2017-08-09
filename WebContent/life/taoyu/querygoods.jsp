@@ -16,11 +16,14 @@ body{
 </style>
 <body>
 <center>
-<p>分类查询和关键字查询商品</p>
+<p>分类查询:出行,娱乐,学习。
+<br/>
+输入关键句查询:商品ID,类型,名字,校区,描述</p>
 <form action="querygoodsAction" method="post">
 
 action:<input type="text"name="action"/><br/><br/>
 num:<input type="text"name="num"/><br/><br/>
+goods_id:<input type="text"name="goods_id"/>用于删除发布的商品的<br/><br/>
 <input type="submit" value="提交">
 </form>
 <br/>

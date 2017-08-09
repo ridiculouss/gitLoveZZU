@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import persionalCenter.dao.Dao;
+import persionalCenter.dao.Userdao;
 import persionalCenter.entity.User;
 import persionalCenter.entity.UserInfo;
 import zzu.util.GetDate;
@@ -21,22 +22,19 @@ public class UserService {
 
 	@Resource(name="user_Dao")
 	private Dao dao;
-	@Resource(name="getdata")
-	private GetDate data;
+	
+	private GetDate data=new GetDate();
 	
 	
-	boolean isSuccessful=false;
-	
-	String sql=null;
-	String values;
-	Serializable id = null;
+
 //保存用户操作
 	public boolean save(User user){
+		  
 		int account = 0;
-		isSuccessful=false;
-		id=null;//初始化id
-		sql="from User where phone=?";
-		values=user.getPhone();
+		boolean	isSuccessful=false;
+		Serializable	id=null;//初始化id
+		String	sql="from User where phone=?";
+		String values=user.getPhone();
 		List<User> list=dao.query(sql, values);
 		if(list.isEmpty()){
 			UserInfo userinfo=new UserInfo();
@@ -64,18 +62,19 @@ public class UserService {
 			}
 		
 		return isSuccessful;
-		
-	}
+		 }
+	
 
 //用户首次登陆查询用户操作
 	public String  query(User user) {
+		
 		String sessionid=null;
-		sql="from User where phone=? and password=?";
+		String sql="from User where phone=? and password=?";
 		String values1=user.getPhone();
 		String values2=user.getPassword();
 		List<User> list=this.dao.query(sql, values1,values2);
 		if(!list.isEmpty()){
-			isSuccessful=true;
+			boolean isSuccessful=true;
 			System.out.println("用户:"+user.getPhone()+"存在");
 			String phone=user.getPhone();
 			String password=user.getPassword();
@@ -96,15 +95,17 @@ public class UserService {
 			
 		}else{System.out.println("用户:"+user.getPhone()+"不存在");
 		}
-		
+		 
 		return sessionid;
 	}
+		 
 	
 	//用户不是首次登陆
 	public String  againquery(User user) throws ParseException {
+		 
 		String sessionid=null;
-		sql="from User where SessionID=?";
-		values=user.getSessionID();
+		String sql="from User where SessionID=?";
+		String values=user.getSessionID();
 		List<User> list=this.dao.query(sql, values);
 		if(!list.isEmpty()){
 			for (User user2 : list) {
@@ -127,19 +128,20 @@ public class UserService {
 				}else{sessionid=null;System.out.println("用户距上次登陆超过30天");}
 			}
 		}
+		 
 		return sessionid;
-		
-	}
+		 }
+	
 	
 //保存或修改用户信息
-	public boolean saveOrupdate(UserInfo userinfo) {
-		isSuccessful=false;
-		id = null;//初始化id
+	public boolean updateUserInfo(UserInfo userinfo) {
+		 
+	boolean	isSuccessful=false;
+	Serializable	id = null;//初始化id
 			//得到User对象
-		sql="from User where phone=?";
-		values=userinfo.getPhone();
-		List<User> list=new ArrayList<User>();
-				list=this.dao.query(sql, values);
+		String sql="from User where phone=?";
+		String values=userinfo.getPhone();
+		List<User> list=this.dao.query(sql, values);
 			
 			for (User user : list) {
 				//得到User对象的id
@@ -147,9 +149,8 @@ public class UserService {
 				sql="from UserInfo where ul_id=?";
 				values=user.getUid().toString();
 				System.out.println("Uid:"+values+sql+","+values);
-				List<UserInfo> infolist=new ArrayList<UserInfo>();
-						infolist=dao.query(sql, values);
-				//如果存在则执行更新操作，由于不能具体更新某个字段，所以更新前要取出表中字段值，再重新赋不为空的值给属性。
+				List<UserInfo> infolist=dao.query(sql, values);
+				
 				if(infolist.size() ==1){
 				  
 				if(userinfo.getAcademy() !=null && !userinfo.getAcademy().equals("")){	infolist.get(0).setAcademy(userinfo.getAcademy());}
@@ -164,82 +165,59 @@ public class UserService {
 				    
 				
 						this.dao.update(infolist.get(0));
-					    System.out.println("用户信息已存在，进行修改操作");
+					    System.out.println("用户信息修改操作");
 						id=1;
 						
-				//如果不存在用户信息则执行级联保存操作	
-				}else{
-
-					//User对象中添加UserInfo对象
-					user.getSetuserinfo().add(userinfo);
-					//UserInfo对象中添加User对象
-					userinfo.setUser(user);
-					id=this.dao.save(user);
-					System.out.println("用户信息不存在，进行保存操作");
+						isSuccessful=true;
 				}	
 				
 			}
 
 			if(id !=null){
-				isSuccessful=true;
+			
 				System.out.println("个人信息已保存到数据库!");
 			}else{
 			System.out.println("Service层，UserInfo对象为空!!!");
 			}
-		
+			userinfo=null;
+			id=null;
 		return isSuccessful;
+		 }
 		
-		
-	}
+	
 //查询并返回用户信息
-		public String[] query(UserInfo userinfo) {
-			String[] userinfoDatas=new String[9];
+		public UserInfo query(UserInfo userinfo) {
+			  
 			
 			Integer Uid=null;
 			//根据phone查询User对象
-			sql="from User where phone=?";
-			values=userinfo.getPhone();
+		String	sql="from User where phone=?";
+		String	values=userinfo.getPhone();
 			List<User> list=this.dao.query(sql, values);
 			
 			for (User user : list) {
 				Uid=user.getUid();
 			}
-			if(Uid !=null){
+			if(Uid ==null){System.out.println("查询用户信息未检索到用户");return null;}
 				//根据User的id查询关联的userinfo表的外键为ul_id=id的对象是否存在
 				sql="from UserInfo where ul_id=?";
 				values=Uid.toString();
 				System.out.println("Uid:"+values+sql+","+values);
 				List<UserInfo> list2=dao.query(sql, values);
+	
+			return list2.get(0);
+			 }
 			
-			for (UserInfo userInfo2 : list2) {
-				
-				userinfoDatas[0]=userInfo2.getImageUrl();
-				userinfoDatas[1]=userInfo2.getNickname();
-				userinfoDatas[2]=userInfo2.getPhone();
-				userinfoDatas[3]=userInfo2.getQr_codeUrl();
-				userinfoDatas[4]=userInfo2.getGender();
-				userinfoDatas[5]=userInfo2.getHometown();
-				userinfoDatas[6]=userInfo2.getAcademy();
-				userinfoDatas[7]=userInfo2.getDepartments();
-				userinfoDatas[8]=userInfo2.getProfessional();
-				
-			}
-			
-			
-			}
 		
-			return userinfoDatas;
-			
-		}
-		
-		//获取account并返回图片名
+//获取account并返回图片名
 		public String[] getImageName(String SessionID){
+			 
 			String[] str =new String[10];
 			String phone=null;
 			String newimageurl=null;
 			String oldimageurl=null;
-			sql="from User where SessionID=?";
-			values=SessionID;
+		String	sql="from User where SessionID=?";
+		String	values=SessionID;
 			List<User> list2=dao.query(sql, values);
 			
 			if(!list2.isEmpty()){

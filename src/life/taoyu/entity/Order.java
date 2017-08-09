@@ -1,5 +1,6 @@
 package life.taoyu.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Component;
 import persionalCenter.entity.User;
 
 @Component(value = "order")
-public class Order {// 买的订单实体类
+public class Order implements Serializable{// 买的订单实体类
 
 	private Integer order_id;// 表ID
 	private String order_status;// 订单状态
@@ -16,7 +17,17 @@ public class Order {// 买的订单实体类
 	private String address;// 买家地址
 	private String name;// 买家姓名
 	private String phone;// 买家手机号
-	private String buyerOrseller;// 订单是买家还是卖家的
+	private String total;//订单总计
+	
+	public String getTotal() {
+		return total;
+	}
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+
+
 	private User user;
 	// （UO_id 外键维护卖家用户表）
 	
@@ -70,16 +81,13 @@ public class Order {// 买的订单实体类
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getBuyerOrseller() {
-		return buyerOrseller;
-	}
-	public void setBuyerOrseller(String buyerOrseller) {
-		this.buyerOrseller = buyerOrseller;
-	}
+
+
+
 	@Override
 	public String toString() {
 		return "Order [order_id=" + order_id + ", order_status=" + order_status + ", order_date=" + order_date
-				+ ", address=" + address + ", name=" + name + ", phone=" + phone + ", buyerOrseller=" + buyerOrseller
-				+ "]";
+				+ ", address=" + address + ", name=" + name + ", phone=" + phone + ", total=" + total + 
+				 "]";
 	}
 }

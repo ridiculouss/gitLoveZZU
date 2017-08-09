@@ -31,10 +31,15 @@
                 <result name="input">/login.jsp</result>
             </action>
             <!-- 管理员 -->
-              <action name="adminloginAction_*" class="adminlogin" method="{1}">
+              <action name="adminAction_*" class="admin" method="{1}">
                 
                 <result name="success" >/WEB-INF/admin/admin.jsp</result>
                 <result name="input" >adminlogin.jsp</result>
+                <result name="loginout" type="redirect">adminlogin.jsp</result>
+                <result name="returnUgoods" >/admin/auditGoods.jsp</result>
+                
+                
+                
             </action>
 		
 	</package>
