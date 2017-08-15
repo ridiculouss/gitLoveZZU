@@ -40,6 +40,21 @@
 		<key column="UCart_id"></key>
 		<one-to-many  class="life.taoyu.entity.Cart"/>
 		</set>
+   <!-- 配置关联主题表 -->
+		<set name="settheme" cascade="save-update" inverse="true" >
+		<key column="UserTheme_fkey"></key>
+		<one-to-many  class="life.mytopiccircle.entity.Theme"/>
+		</set>
+   <!-- 配置关联话题表 -->
+		<set name="settopic" cascade="save-update" inverse="true" >
+		<key column="UserTopic_fkey"></key>
+		<one-to-many  class="life.mytopiccircle.entity.Topic"/>
+		</set>
+   <!-- 配置关联话题评论表 -->
+		<set name="settopiccomment" cascade="save-update" inverse="true" >
+		<key column="UserTopicComment_fkey"></key>
+		<one-to-many  class="life.mytopiccircle.entity.TopicComment"/>
+		</set>
  
 	</class>
 </hibernate-mapping>

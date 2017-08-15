@@ -7,6 +7,10 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import life.mytopiccircle.action.ThemeAction;
+import life.mytopiccircle.entity.Theme;
+import life.mytopiccircle.entity.Topic;
+import life.mytopiccircle.entity.TopicComment;
 import life.taoyu.entity.Cart;
 import life.taoyu.entity.Goods;
 import life.taoyu.entity.Order;
@@ -31,8 +35,29 @@ public class User {
 	private Set<Goods> setgoods=new HashSet<Goods>();//使用set集合表示Goods类
 	private Set<Order> setorder=new HashSet<Order>();//使用set集合表示Order类
 	private Set<Cart> setcart=new HashSet<Cart>();//使用set集合表示Cart类
+	private Set<Theme> settheme=new HashSet<Theme>();//使用set集合表示Themen类
+	private Set<Topic> settopic=new HashSet<Topic>();//使用set集合表示Topic类
+	private Set<TopicComment> settopiccomment=new HashSet<TopicComment>();//使用set集合表示Topic类
 
 	
+	public Set<TopicComment> getSettopiccomment() {
+		return settopiccomment;
+	}
+	public void setSettopiccomment(Set<TopicComment> settopiccomment) {
+		this.settopiccomment = settopiccomment;
+	}
+	public Set<Topic> getSettopic() {
+		return settopic;
+	}
+	public void setSettopic(Set<Topic> settopic) {
+		this.settopic = settopic;
+	}
+	public Set<Theme> getSettheme() {
+		return settheme;
+	}
+	public void setSettheme(Set<Theme> settheme) {
+		this.settheme = settheme;
+	}
 	public Set<Order> getSetorder() {
 		return setorder;
 	}

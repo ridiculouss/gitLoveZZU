@@ -39,7 +39,7 @@
         <param name="contentType">application/jpg/jpeg/png/svg/swf/jpeg2000</param>
         <param name="inputName">targetFile</param>
         <param name="contentDisposition">filename="${imageURL}"</param>
-        <param name="bufferSize">4096</param>
+        <param name="bufferSize">40960000</param>
         <param name="input">error.html</param>
         </result>
         </action>

@@ -23,7 +23,7 @@ public static void returndata(Object o) throws IOException{
 				
 				
 				PrintWriter out = response.getWriter();
-				out.println(o);
+				out.print(o);
 				out.flush();
 				out.close();
 				System.out.println("返回app数据成功");

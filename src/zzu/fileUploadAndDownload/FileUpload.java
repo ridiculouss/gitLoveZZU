@@ -21,18 +21,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import life.mytopiccircle.entity.Theme;
+import life.mytopiccircle.entity.Topic;
+import life.mytopiccircle.service.TopicCircleService;
 import life.taoyu.entity.Goods;
 import life.taoyu.service.TaoyuService;
 import net.sf.json.JSONObject;
+import persionalCenter.dao.Dao;
 import zzu.util.GetDate;
 import zzu.util.Panduanstr;
 import zzu.util.Returndata;
-
+@Transactional
 @Component(value = "imagesupload")
 @Scope(value = "prototype")
 public class FileUpload extends ActionSupport {
@@ -40,17 +46,13 @@ public class FileUpload extends ActionSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+
+	
 	// 上传文件域
 
 	//private File[] images = new File[10];
-	 ArrayList<File> images=new ArrayList<File>();
-	public ArrayList<File> getImages() {
-		return images;
-	}
-	public void setImages(ArrayList<File> images) {
-		this.images = images;
-	}
-
+	 List<File> images=new ArrayList<File>();
 	// 上传文件类型
 	private String[] imagesContentType = new String[10];
 	// 封装上传文件名
@@ -61,12 +63,15 @@ public class FileUpload extends ActionSupport {
 	private String action = null;
 
 	private String[] DNames = null;// 指定要删除的图片数组
-
+    private String ThemeId ,TopicId ;//主题，话题id
 	@Resource(name = "getdata")
 	private GetDate data;
 	@Resource(name = "taoyuService")
 	private TaoyuService taoyuService;
-
+	@Autowired
+	TopicCircleService  TCS;
+	@Autowired
+	UpdateImgToDB UPDB;
 	HttpServletRequest request = ServletActionContext.getRequest();
 	boolean isSuccessful = false;
 	String[] str = null;// str[0] 是放Account，str[1]是放获取数据库中的旧的图片名
@@ -75,33 +80,71 @@ public class FileUpload extends ActionSupport {
 	Goods goods = new Goods();
 
 	
+	List<String> strlist=new ArrayList<String>();
 
 	@Override
-	public String execute() throws FileNotFoundException, IOException {
-		Upload u=new Upload();
-		if (action != null) {
+	public String execute() throws FileNotFoundException, IOException, InterruptedException {
+		System.out.println(ThemeId+","+action+":"+images);
+		Thread uploadThread;
+		
+		
+		if (action == null&&action.equals("")) {System.out.println("上传图片action空在或空串");}
 		switch (action) {
-			case "上传商品图片": boolean b=getDBinfo();
-			if(b){ isSuccessful=u.run();}
+			case "上传商品图片":
+				boolean b=getDBinfo();
+				 uploadThread=new Thread(new Upload("goodsuploadImage",str[0]));
+				uploadThread.start();
+				uploadThread.join();
+			if(b){ List<String> imgname=strlist;  
+			        if(imgname!=null)     updategoods(imgname);//更新商品图片信息
+			        
+			}
 				break;
 				
-			case "上传话题圈图片":
+			case "上传主题图片":
+				 uploadThread=new Thread(new Upload("topicCircle", "theme"));
+				 uploadThread.start();
+					uploadThread.join();
+				List<String> Themeimgname=strlist;
+				Integer i=Integer.parseInt(ThemeId);
+				  Theme t=new Theme();t.setThemeId(i);
+				if(Themeimgname.size()!=0){ t.setThemeImg(Themeimgname.get(0)); 
+				System.out.println("theme:"+t);
+				isSuccessful=TCS.updateTheme(t);
+				
+				           }
+				break;
+			case "上传话题图片":
+				 uploadThread=new Thread(new Upload("topicCircle", "topic"));
+				 uploadThread.start();
+				 uploadThread.join();
+					List<String> Topicimgname=strlist;
+					Integer i2=Integer.parseInt(TopicId);
+					Topic topic=new Topic();
+					topic.setTopicId(i2);
+					if(Topicimgname.size()!=0){
+						Panduanstr p=new Panduanstr();
+						String str=p.pinjie(Topicimgname);
+						topic.setTopicImg(str); 
+					isSuccessful=TCS.updateTopic(topic);
+					
+					}
+					
 				break;
 				
-			default:
+			default:System.err.println("图片上传action未匹配");
 				break;
 			}
-		}
+		
 			
 			
 
-			// 返回数据
-				
-			Returndata.returnboolean(isSuccessful);
+			
 					
 
 		return null;
 	}
+	
 public boolean getDBinfo(){
 	// 获取数据库中记录信息
 	boolean b=false;
@@ -121,15 +164,28 @@ public boolean getDBinfo(){
 					}	
 				return b;
    }
-	class Upload  {
 
+//只管输入输出的内部文件类
+	class Upload implements Runnable {
 		
-		public boolean run() {isSuccessful=false;
-			List<String> l = new ArrayList<>();// 建保存新图片名的集合，用于后面拼接成字符串更新到数据库
+		String foldername,imgname;
+		public  Upload(String foldername,String imgname) {
+			this.foldername=foldername;
+			this.imgname=imgname;
+
+		}
+		public Upload() {
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public void run() {
+			isSuccessful=false;
+			List<String> imgnamelist = new ArrayList<String>();// 建保存新图片名的集合，用于后面拼接成字符串更新到数据库
 			// 图片存放路径
 			String realPath = request.getRealPath("/").substring(0,
 					request.getRealPath("/").lastIndexOf(request.getContextPath().replace("/", "")))
-					+ "goodsuploadImage" + File.separator;
+					+ foldername + File.separator;
 			System.out.println("文件存放目录: " + realPath);
 			FileOutputStream fos = null;
 			FileInputStream fis = null;
@@ -152,9 +208,9 @@ public boolean getDBinfo(){
 					String sss = getImagesContentType()[i];
 					System.out.println("类型:" + sss);
 					String suffix = getImagesFileName()[i].substring(getImagesFileName()[i].lastIndexOf("."));
-					String name = str[0] + data.GetNowDate2() + UUID.randomUUID().toString() + suffix; // 设置图片名=用户账户+目前时间+UUID
-					l.add(name);
-System.out.println("存储路径:"+realPath+name);
+					String name = imgname + data.GetNowDate2() + UUID.randomUUID().toString() + suffix; // 设置图片名=用户账户+目前时间+UUID
+					imgnamelist.add(name);
+                    System.out.println("存储路径:"+realPath+name);
 					fos = new FileOutputStream(realPath + name);
 					//fis = new FileInputStream(images[i]);
 					 fis=new FileInputStream(images.get(i));
@@ -165,6 +221,8 @@ System.out.println("存储路径:"+realPath+name);
 					}
 				}
 				isSuccessful=true;
+				strlist.addAll(imgnamelist);
+				
 			} catch (FileNotFoundException e) {
 				System.err.println("文件不存在" + e.getMessage());
 			} catch (Exception e) {
@@ -180,15 +238,16 @@ System.out.println("存储路径:"+realPath+name);
 				}
 
 			}
-
-			System.out.println("多文件上传操作成功");
-			updategoods(l);//更新商品图片信息
-			return isSuccessful;
+             
+	
+			
+			
 			
 		}
 			
-	}
-
+}//内部类到此结束
+	
+//只更新商品的方法
 	public void updategoods(List<String> l) {
 		String imageurl = p.pinjie(l);// 拼接成字符串
 		if(str[1]!=null)
@@ -257,7 +316,12 @@ System.out.println("存储路径:"+realPath+name);
 	public void setGoods_id(String goods_id) {
 		this.goods_id = goods_id;
 	}
-
+	public List<File> getImages() {
+		return images;
+	}
+	public void setImages(List<File> images) {
+		this.images = images;
+	}
 //	public File[] getImages() {
 //		return images;
 //	}
@@ -281,6 +345,19 @@ System.out.println("存储路径:"+realPath+name);
 	public void setImagesFileName(String[] imagesFileName) {
 		this.imagesFileName = imagesFileName;
 	}
+	public String getThemeId() {
+		return ThemeId;
+	}
+	public void setThemeId(String themeId) {
+		ThemeId = themeId;
+	}
+	public String getTopicId() {
+		return TopicId;
+	}
+	public void setTopicId(String topicId) {
+		TopicId = topicId;
+	}
+
 
 }
 

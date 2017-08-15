@@ -19,7 +19,7 @@ body{
 
 <center>
 <p>用户手机号和密码登录或身份标识登陆</p>
-<s:form action="loginAction" method="post" theme="simple">
+<s:form action="loginAction" method="post" theme="simple" namespace="/">
 <p>手机号和密码登陆</p>
  phone:<input type="text"name="phone" placeholder="请输入11位手机号"/><br/><br/>
  password:<input type="text"name="password"/><br/><br/>

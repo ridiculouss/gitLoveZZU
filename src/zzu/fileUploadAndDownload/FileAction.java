@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -25,13 +26,13 @@ import net.sf.json.JSONObject;
 import persionalCenter.entity.UserInfo;
 import persionalCenter.service.UserService;
 import zzu.util.Returndata;
-
+@Transactional
 @Component(value = "imageupload")
 @Scope(value = "prototype")
 public class FileAction extends ActionSupport {
 
 	/**
-	 * 
+	 * 单图片上传（用户头像）
 	 */
 	@Resource(name = "User_Service")
 	private UserService userService;

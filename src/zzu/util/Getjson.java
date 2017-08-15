@@ -15,7 +15,7 @@ public class Getjson {
 	public <T> JSONObject getjsonarray(List<T> list,String action){
 		JsonConfig config = new JsonConfig();
 		config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
-		config.setExcludes(new String[]{"user","setcomments_L1","setcomments_L2","cgoods","setorderitems","comments_l1"});
+		config.setExcludes(new String[]{"user","setcomments_L1","setcomments_L2","cgoods","setorderitems","comments_l1","settopic","settopiccomment"});
 		
 	    JSONArray values = JSONArray.fromObject(list,config);  
 	    JSONObject json=new JSONObject();
@@ -35,4 +35,36 @@ public class Getjson {
 		JSONObject json=JSONObject.fromObject(j, config);
 		return json;
 		};
+	
+		//话题圈list 转jsonarray  并且过滤级联属性
+		public <T> JSONObject Topicgetjsonarray(List<T> list,String action){
+			JsonConfig config = new JsonConfig();
+			config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+			config.setExcludes(new String[]{"topic","user","theme","setcomments_L1","setcomments_L2","setorderitems","settopic","setgoods","setorder","settopiccomment"});
+			
+		    JSONArray values = JSONArray.fromObject(list,config);  
+		    JSONObject json=new JSONObject();
+		    json.put("result", action);
+		    json.put("values", values);
+		      System.out.println(values.toString());
+			
+			
+			return json;
+			} 
+		//话题圈list 转jsonarray  并且过滤级联属性
+		public <T> JSONObject Topicgetjsonarray3(List<T> list,String action){
+			JsonConfig config = new JsonConfig();
+			config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+			config.setExcludes(new String[]{"user","theme","setcomments_L1","setcomments_L2","setorderitems","settopic","setgoods","setorder","settopiccomment"});
+			
+			JSONArray values = JSONArray.fromObject(list,config);  
+			JSONObject json=new JSONObject();
+			json.put("result", action);
+			json.put("values", values);
+			System.out.println(values.toString());
+			
+			
+			return json;
+		} 
+		
 	}

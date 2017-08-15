@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+    <hibernate-mapping>
+    <class name="life.mytopiccircle.entity.Theme" table="t_theme" dynamic-update="true">
+    <id name="ThemeId" >
+    <generator class="native"></generator>
+    </id>
+     <property name="ThemeTitle"></property>
+     <property name="ThemeImg"></property>
+     <property name="TopicCount"></property>
+   
+     
+    <many-to-one name="user" class="persionalCenter.entity.User" column="UserTheme_fkey" lazy="false"></many-to-one>
+   <!-- 配置关联话题表 -->
+		<set name="settopic" cascade="save-update" inverse="true" >
+		<key column="ThemeTopic_fkey"></key>
+		<one-to-many  class="life.mytopiccircle.entity.Topic"/>
+		</set>
+   </class>
+   </hibernate-mapping>

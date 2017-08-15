@@ -3,12 +3,14 @@ package life.taoyu.action;
 import java.io.PrintWriter;
 
 
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -16,7 +18,7 @@ import com.opensymphony.xwork2.ModelDriven;
 import life.taoyu.entity.Goods;
 import life.taoyu.service.TaoyuService;
 import net.sf.json.JSONObject;
-
+@Transactional
 @Component(value = "publishgoodsAction")
 @Scope(value = "prototype")
 public class PublishGoods extends ActionSupport implements ModelDriven<Goods> {

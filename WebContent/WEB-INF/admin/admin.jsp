@@ -46,7 +46,9 @@ if(s!=null && !s.equals("已登录")){
 
 </div>
 <div class="bottom" >
-<font  size="6.5"><a style=background-color:#cf6d77;" href="admin/auditGoods.jsp"  target="right">搜索商品</a></font>&nbsp;
+<font  size="6.5"><a style=background-color:#cf6d77;" href="admin/auditGoods.jsp"  target="right">管理商品</a></font>&nbsp;
+<font  size="6.5"><a style=background-color:#cf6d77;" href="admin/addRoast.jsp"  target="right">更新轮播</a></font>&nbsp;
+<font  size="6.5"><a style=background-color:#cf6d77;" href="crawlerAction" target="right">爬取新闻</a></font>&nbsp;
 
 </div>
 </body>

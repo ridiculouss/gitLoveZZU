@@ -1,6 +1,7 @@
 package com.zzu.entity;
 
 import java.util.List;
+
 import org.springframework.stereotype.Component;
 @Component(value="results")
 public class Results {

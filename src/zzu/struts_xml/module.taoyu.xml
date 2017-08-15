@@ -17,9 +17,7 @@
 		 </action>
 		
 		
-		<action name="TestAction" class="TestAction">
-		 <result name="sss" type="chain">OrderAction</result>
-		</action>
+		
 	
 		
 	

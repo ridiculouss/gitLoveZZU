@@ -8,8 +8,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
@@ -21,11 +23,12 @@ import life.taoyu.entity.OrderItems;
 import life.taoyu.modeldriver.OrderAndItems;
 import life.taoyu.modeldriver.OrderGoods;
 import life.taoyu.modeldriver.Order_Ugoods;
+import life.taoyu.service.OrderService;
 import life.taoyu.service.TaoyuService;
 import zzu.util.Getjson;
 import zzu.util.Returndata;
 import zzu.util.Sort;
-
+@Transactional
 @Component(value ="OrderAction")
 @Scope(value = "prototype")
 public class OrderAction extends ActionSupport implements ModelDriven<OrderAndItems> {
@@ -37,9 +40,9 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderAndIt
 	private static final long serialVersionUID = 1L;
 	
 	private OrderAndItems OAI =new OrderAndItems();
-	@Resource(name = "taoyuService")
-	private TaoyuService taoyuService;
 	
+	@Autowired
+	private OrderService orderService;
 	
 	private Getjson getJsonArray=new Getjson();
 	@Override
@@ -82,11 +85,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderAndIt
 		 if(OAI.getAction()==null){ System.err.println("订单操作action为空"); return null;}
 		 switch (OAI.getAction()) {
 		case "生成订单":
-                    Successful= taoyuService.savaorder(OAI);
+                    Successful= orderService.savaorder(OAI);
 			        Returndata.returnboolean(Successful);
 			break;
 		case "查询买家订单":
-			List<Order_Ugoods> OUG = taoyuService.queryorder(OAI);
+			List<Order_Ugoods> OUG = orderService.queryorder(OAI);
 			List<Order_Ugoods> OUG2=	Sort.sortByStatus(OUG);//按照待付款/已付款优先的原则
 			Returndata.returndata(getJsonArray.getjsonarray(OUG2, "查询买家订单"));
 			break;
@@ -96,17 +99,17 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderAndIt
 			 Order o=new Order();
 			 o.setOrder_id(id);
 			 o.setOrder_status("已付款");
-			Successful= taoyuService.updateOrderStatus(o);
+			Successful= orderService.updateOrderStatus(o);
 			 Returndata.returnboolean(Successful);
 			break;
 		case "删除订单":
 			Integer id2=Integer.valueOf(OAI.getOrderID());
 			 System.out.println(id2);
-			 Successful= taoyuService.deleteOrder(id2);
+			 Successful= orderService.deleteOrder(id2);
 			 Returndata.returnboolean(Successful);
 			break;
 		case "查询卖家订单":
-			List<OrderGoods> OGlist=taoyuService.querySellerOrder(OAI.getSessionID());
+			List<OrderGoods> OGlist=orderService.querySellerOrder(OAI.getSessionID());
 			List<OrderGoods> OG2=	Sort.sortByStatus2(OGlist);//按照待付款/已付款优先的原则
 			Returndata.returndata(getJsonArray.getjsonarray(OG2, "查询卖家订单"));
 			break;

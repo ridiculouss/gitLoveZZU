@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -16,8 +18,9 @@ import net.sf.json.JSONObject;
 import persionalCenter.entity.UserInfo;
 import persionalCenter.service.UserService;
 import zzu.util.Returndata;
-
+@Transactional
 @Component(value="queryuserinfo_action")
+@Scope(value="prototype")
 public class QueryUserInfo_action extends ActionSupport implements ModelDriven<UserInfo> {
 
 	/**

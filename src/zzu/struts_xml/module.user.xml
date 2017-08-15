@@ -3,7 +3,7 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-	<package name="zzuAction01" extends="struts-default" namespace="/">
+	<package name="zzuAction01" extends="struts-default" namespace="/*">
 		<!-- class属性里面不写action全路径了，因为写，action对象创建两次
 			写spring配置的action的bean的id值
 		 -->
@@ -37,11 +37,15 @@
                 <result name="input" >adminlogin.jsp</result>
                 <result name="loginout" type="redirect">adminlogin.jsp</result>
                 <result name="returnUgoods" >/admin/auditGoods.jsp</result>
-                
-                
-                
             </action>
+		<!-- 轮播 -->
+		<action name="RoastingAction" class="Roasting">
+		<result name="ok">/admin/addRoast.jsp</result>
+		</action>
 		
+		<action name="crawlerAction" class="crawler">
+		<result name="ok">test.jsp</result>
+		</action>
 	</package>
 	
 </struts>

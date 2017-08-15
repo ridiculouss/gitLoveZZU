@@ -1,14 +1,6 @@
 package persionalCenter.user_action;
 
-import java.io.PrintWriter;
-import java.util.Enumeration;
-
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +12,6 @@ import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONObject;
 import persionalCenter.entity.User;
 import persionalCenter.service.UserService;
-import zzu.util.JudgePhone;
 import zzu.util.Judge_character;
 import zzu.util.Returndata;
 

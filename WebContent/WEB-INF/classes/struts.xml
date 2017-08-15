@@ -15,7 +15,14 @@
 	<include file="zzu/struts_xml/module.taoyu.xml"></include>
 	
 	
-	<!-- 用户模块 -->
+	<!-- 我的话题圈-->
+<include file="zzu/struts_xml/module.topicCircle.xml"></include>
+
+
+
+
+
+
 
 <!-- 文件上传下载模块 -->
 <include file="com/zzu/struts/xml/module.fileDU.xml"/>

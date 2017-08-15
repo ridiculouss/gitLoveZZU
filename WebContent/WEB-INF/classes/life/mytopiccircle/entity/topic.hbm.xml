@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+    <hibernate-mapping>
+    <class name="life.mytopiccircle.entity.Topic" table="t_topic" dynamic-update="true">
+    <id name="TopicId" >
+    <generator class="native"></generator>
+    </id>
+     <property name="TopicTitle"></property>
+     <property name="TopicImg"></property>
+     <property name="TopicText"></property>
+     <property name="TopicCommentCount"></property>
+     <property name="TopicThumbCount"></property>
+     <property name="date"></property>
+   
+     
+    <many-to-one name="theme" class="life.mytopiccircle.entity.Theme" column="ThemeTopic_fkey" lazy="false"></many-to-one>
+    <many-to-one name="user" class="persionalCenter.entity.User" column="UserTopic_fkey" lazy="false"></many-to-one>
+  
+   <!-- 配置关联话题评论表 -->
+		<set name="settopiccomment" cascade="save-update" inverse="true" >
+		<key column="TopicTopicComment_fkey"></key>
+		<one-to-many  class="life.mytopiccircle.entity.TopicComment"/>
+		</set>
+   </class>
+   </hibernate-mapping>
