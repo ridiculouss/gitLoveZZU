@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -70,8 +72,7 @@ public class FileUpload extends ActionSupport {
 	private TaoyuService taoyuService;
 	@Autowired
 	TopicCircleService  TCS;
-	@Autowired
-	UpdateImgToDB UPDB;
+	
 	HttpServletRequest request = ServletActionContext.getRequest();
 	boolean isSuccessful = false;
 	String[] str = null;// str[0] 是放Account，str[1]是放获取数据库中的旧的图片名
@@ -85,58 +86,39 @@ public class FileUpload extends ActionSupport {
 	@Override
 	public String execute() throws FileNotFoundException, IOException, InterruptedException {
 		System.out.println(ThemeId+","+action+":"+images);
-		Thread uploadThread;
+		String realPath = request.getRealPath("/").substring(0,
+				request.getRealPath("/").lastIndexOf(request.getContextPath().replace("/", ""))) ;
+		BlockingQueue BQmadeimg=new BlockingQueue();//实例化阻塞队列
+		ExecutorService exec=Executors.newCachedThreadPool();
 		
 		
 		if (action == null&&action.equals("")) {System.out.println("上传图片action空在或空串");}
 		switch (action) {
-			case "上传商品图片":
-				boolean b=getDBinfo();
-				 uploadThread=new Thread(new Upload("goodsuploadImage",str[0]));
-				uploadThread.start();
-				uploadThread.join();
-			if(b){ List<String> imgname=strlist;  
-			        if(imgname!=null)     updategoods(imgname);//更新商品图片信息
-			        
-			}
+			case "上传商品图片":realPath+= "goodsuploadImage"+ File.separator;
+				
+				exec.execute(new UploadThread(goods_id,BQmadeimg,"goods",images,imagesContentType,imagesFileName,realPath));
+				exec.execute(new UpdateImgToDB(BQmadeimg,taoyuService));//传递队列和service对象
+
 				break;
 				
-			case "上传主题图片":
-				 uploadThread=new Thread(new Upload("topicCircle", "theme"));
-				 uploadThread.start();
-					uploadThread.join();
-				List<String> Themeimgname=strlist;
-				Integer i=Integer.parseInt(ThemeId);
-				  Theme t=new Theme();t.setThemeId(i);
-				if(Themeimgname.size()!=0){ t.setThemeImg(Themeimgname.get(0)); 
-				System.out.println("theme:"+t);
-				isSuccessful=TCS.updateTheme(t);
+			case "上传主题图片":realPath+= "topicCircle"+ File.separator;
+				exec.execute(new UploadThread(ThemeId,BQmadeimg, "theme",images,imagesContentType,imagesFileName,realPath));
 				
-				           }
+				exec.execute(new UpdateImgToDB(BQmadeimg,TCS));
 				break;
 			case "上传话题图片":
-				 uploadThread=new Thread(new Upload("topicCircle", "topic"));
-				 uploadThread.start();
-				 uploadThread.join();
-					List<String> Topicimgname=strlist;
-					Integer i2=Integer.parseInt(TopicId);
-					Topic topic=new Topic();
-					topic.setTopicId(i2);
-					if(Topicimgname.size()!=0){
-						Panduanstr p=new Panduanstr();
-						String str=p.pinjie(Topicimgname);
-						topic.setTopicImg(str); 
-					isSuccessful=TCS.updateTopic(topic);
-					
-					}
-					
+				realPath+= "topicCircle"+ File.separator;
+				for(int i=0;i<20;i++)
+					exec.execute(new UploadThread(TopicId, BQmadeimg,"topic",images,imagesContentType,imagesFileName,realPath));
+					exec.execute(new UpdateImgToDB(BQmadeimg,TCS));
+				
 				break;
 				
 			default:System.err.println("图片上传action未匹配");
 				break;
 			}
 		
-			
+		 
 			
 
 			
@@ -165,101 +147,10 @@ public boolean getDBinfo(){
 				return b;
    }
 
-//只管输入输出的内部文件类
-	class Upload implements Runnable {
-		
-		String foldername,imgname;
-		public  Upload(String foldername,String imgname) {
-			this.foldername=foldername;
-			this.imgname=imgname;
 
-		}
-		public Upload() {
-			// TODO Auto-generated constructor stub
-		}
-
-		@Override
-		public void run() {
-			isSuccessful=false;
-			List<String> imgnamelist = new ArrayList<String>();// 建保存新图片名的集合，用于后面拼接成字符串更新到数据库
-			// 图片存放路径
-			String realPath = request.getRealPath("/").substring(0,
-					request.getRealPath("/").lastIndexOf(request.getContextPath().replace("/", "")))
-					+ foldername + File.separator;
-			System.out.println("文件存放目录: " + realPath);
-			FileOutputStream fos = null;
-			FileInputStream fis = null;
-			System.out.println("action:" + action);
-			try {
-
-				File file = new File(realPath);
-
-				// 创建文件上传的位置
-				if (!file.exists()) {
-					file.mkdirs();
-					System.out.println("文件夹不存在已创建");
-				} else {
-					System.out.println("文件夹已经存在");
-				}
-
-				// 上传文件
-
-				for (int i = 0; i < images.size(); i++) {
-					String sss = getImagesContentType()[i];
-					System.out.println("类型:" + sss);
-					String suffix = getImagesFileName()[i].substring(getImagesFileName()[i].lastIndexOf("."));
-					String name = imgname + data.GetNowDate2() + UUID.randomUUID().toString() + suffix; // 设置图片名=用户账户+目前时间+UUID
-					imgnamelist.add(name);
-                    System.out.println("存储路径:"+realPath+name);
-					fos = new FileOutputStream(realPath + name);
-					//fis = new FileInputStream(images[i]);
-					 fis=new FileInputStream(images.get(i));
-					byte[] buffer = new byte[1024];
-					int len = 0;
-					while ((len = fis.read(buffer)) != -1) {
-						fos.write(buffer, 0, len);
-					}
-				}
-				isSuccessful=true;
-				strlist.addAll(imgnamelist);
-				
-			} catch (FileNotFoundException e) {
-				System.err.println("文件不存在" + e.getMessage());
-			} catch (Exception e) {
-				System.err.println("文件上传失败");
-				e.printStackTrace();
-			} finally {
-				try {
-					fis.close();
-					fos.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-             
 	
-			
-			
-			
-		}
-			
-}//内部类到此结束
 	
-//只更新商品的方法
-	public void updategoods(List<String> l) {
-		String imageurl = p.pinjie(l);// 拼接成字符串
-		if(str[1]!=null)
-		imageurl += str[1];// 数据库中和新生成的图片名拼接
 
-		if (imageurl != null && !imageurl.equals("")) {
-			goods.setGimage(imageurl);
-			taoyuService.updateGoods(goods);
-			
-			isSuccessful = true;
-		}
-	}
 
 	// 删除图片方法
 	public void deletePicture() throws Exception {
@@ -358,6 +249,7 @@ public boolean getDBinfo(){
 		TopicId = topicId;
 	}
 
-
+//保存图片名到数据库的内部类
+	
 }
 

@@ -113,7 +113,7 @@ public class TopicCircleService {
 			if(topic.getTopicImg()!=null&&!topic.getTopicImg().isEmpty()){topic2.setTopicImg(topic.getTopicImg());}
 			if(topic.getTopicCommentCount()==1){topic2.setTopicCommentCount(topic2.getTopicCommentCount()+1);}
 			if(topic.getTopicThumbCount()==1){topic2.setTopicThumbCount(topic2.getTopicThumbCount()+1);}
-			if(topic.getTopicThumbCount()==0){topic2.setTopicThumbCount(topic2.getTopicThumbCount()-1);}
+			if(topic.getTopicThumbCount()==0 && topic2.getTopicThumbCount()>0){topic2.setTopicThumbCount(topic2.getTopicThumbCount()-1);}
 			
 			dao.update(topic2);
 			isSuccessful=true;

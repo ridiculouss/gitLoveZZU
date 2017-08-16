@@ -31,10 +31,10 @@ public class TopicCommentAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-
+             System.out.println("action="+action+"ThumbNum="+ThumbNum+"TopicId="+TopicId);
 		if (action == null || TopicId == null || TopicId.isEmpty()) {
-			System.out.println("话题评论action或TopicId为空" + action);
-			return null;
+			System.out.println("话题评论action或TopicId为空" );
+			Returndata.returnboolean(false);
 		}
 		System.out.println("TopicId=" + TopicId + ",TopicComment=" + TopicComment + ",SessionID=" + SessionID
 				+ ",action=" + action + "ThumbNum=" + ThumbNum);
