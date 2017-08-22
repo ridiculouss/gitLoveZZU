@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+    <hibernate-mapping>
+    <class name="life.parTime.entity.PartTime" table="t_parttime" dynamic-update="true">
+    <id name="partTimeId" >
+    <generator class="native"></generator>
+    </id>
+     <property name="title"></property>
+     <property name="content"></property>
+     <property name="salary"></property>
+     <property name="campus"></property>
+     <property name="startDate"></property>
+     <property name="endDate"></property>
+     <property name="startTime"></property>
+     <property name="endTime"></property>
+     <property name="workPlace"></property>
+     <property name="contactWay"></property>
+     <property name="publishDate"></property>
+     <property name="status"></property>
+   
+     
+    <many-to-one name="user" class="persionalCenter.entity.User" column="UserPartTime_fkey" lazy="false"></many-to-one>
+   
+   </class>
+   </hibernate-mapping>

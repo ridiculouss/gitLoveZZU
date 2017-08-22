@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +19,13 @@ import persionalCenter.entity.UserInfo;
 import zzu.util.GetDate;
 @Transactional
 @Component(value="User_Service")
+@Scope(value = "prototype")
 public class UserService {
 
 	@Resource(name="user_Dao")
 	private Dao dao;
 	
-	private GetDate data=new GetDate();
+	
 	
 	
 
@@ -72,15 +74,15 @@ public class UserService {
 		String sql="from User where phone=? and password=?";
 		String values1=user.getPhone();
 		String values2=user.getPassword();
-		List<User> list=this.dao.query(sql, values1,values2);
+		List<User> list=this.dao.query(sql, new String[]{values1,values2});
 		if(!list.isEmpty()){
-			boolean isSuccessful=true;
+		
 			System.out.println("用户:"+user.getPhone()+"存在");
 			String phone=user.getPhone();
 			String password=user.getPassword();
 			String v_code=user.getVerification_code();
 			 sessionid=UUID.randomUUID().toString();
-			String sessionidata=data.GetNowDate();
+			String sessionidata=GetDate.GetNowDate();
 			for (User user2 : list) {
 				if(phone !=null && !phone.equals("")){user2.setPhone(phone);}
 				if(password !=null && !password.equals("")){user2.setPassword(password);}
@@ -110,14 +112,14 @@ public class UserService {
 		if(!list.isEmpty()){
 			for (User user2 : list) {
 				String lastdate=user2.getSessionIDDate();
-				String nowdate=data.GetNowDate();
-				int day=data.getDataNum(lastdate, nowdate);
+				String nowdate=GetDate.GetNowDate();
+				int day=GetDate.getDataNum(lastdate, nowdate);
 				if(day>-30 && day<30){
 					String phone=user.getPhone();
 					String password=user.getPassword();
 					String v_code=user.getVerification_code();
 					 sessionid=UUID.randomUUID().toString();
-					String sessionidata=data.GetNowDate();
+					String sessionidata=GetDate.GetNowDate();
 					if(phone !=null && !phone.equals("")){user2.setPhone(phone);}
 					if(password !=null && !password.equals("")){user2.setPassword(password);}
 					if(v_code !=null && !v_code.equals("")){user2.setVerification_code(v_code);}
@@ -231,7 +233,7 @@ public class UserService {
 			for (UserInfo userInfo : list3) {
 				oldimageurl=userInfo.getImageUrl();
 			}
-			newimageurl=newimageurl+"ZZU"+data.GetNowDate2();//图片名：account+现在日期
+			newimageurl=newimageurl+"ZZU"+GetDate.GetNowDate2();//图片名：account+现在日期
 			str[0]=newimageurl;
 			str[1]=phone;
 			str[2]=oldimageurl;
@@ -239,6 +241,34 @@ public class UserService {
 			return str;
 			
 		}
-		
-		
+	//批量查询用户信息并返回list
+		public List<UserInfo> BatchQueryUserInfo(String[] ulid){
+			List<UserInfo> userinfolist=new ArrayList<UserInfo>();
+			if(ulid!=null){
+				for(String id :ulid){
+				Integer i=Integer.valueOf(id);
+				String sql="from UserInfo where ul_id=?";//根据外键查询用户信息表
+				List<UserInfo> userinfo=dao.query(sql, i);
+				userinfolist.add(userinfo.get(0));
+				}
+			}
+			return userinfolist;
+			
+		}
+		// 通过SessionID查询用户
+		public User queryUser(String SessionID){
+			String sql="from User where SessionID=?";
+			List<User> user=dao.query(sql, SessionID);
+			if(user.size()==0){System.err.println("通过SessionID未检索到用户");return null;}
+			return user.get(0);
+			
+		}
+		// 通过id查询用户
+		public User queryUser(Integer id){
+			String sql="from User where uid=?";
+			List<User> user=dao.query(sql, id);
+			if(user.size()==0){System.err.println("通过id未检索到用户");return null;}
+			return user.get(0);
+			
+		}
 }

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,13 +26,14 @@ import zzu.util.GetDate;
 
 @Transactional
 @Component(value = "OrderService")
+@Scope(value = "prototype")
 public class OrderService {
 	@Resource(name = "user_Dao")
 	private Dao dao;
 	@Resource(name = "taoyuDao")
 	private Dao_taoyu TDao;
 	
-	private GetDate date=new GetDate();
+	
 	
 	
 	// 保存订单
@@ -64,7 +66,7 @@ public class OrderService {
 			// 查出用户，级联保存订单信息
 			for (User user : list) {
 				Order order = orderdata.getOrderData();
-				order.setOrder_date(date.GetNowDate());
+				order.setOrder_date(GetDate.GetNowDate());
 				order.setOrder_status("待付款");
 				order.setTotal(total.toString());
 				order.setUser(user);

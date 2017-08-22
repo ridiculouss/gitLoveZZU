@@ -31,9 +31,8 @@ import zzu.util.GetDate;
 public class TopicCircleService {
 	@Resource(name = "user_Dao")
 	private Dao dao;
-	@Resource(name = "taoyuDao")
-	private Dao_taoyu TDao;
-	GetDate getdate=new GetDate();
+	
+	
 	//发布主题
 	public String PublishTheme( Theme theme, String SessionID){
 		
@@ -91,7 +90,7 @@ public class TopicCircleService {
 				 sql="from Theme where ThemeId=?";
 				List<Theme> theme=dao.query(sql, ThemeId);
 				if(theme.size()!=0)topic.setTheme(theme.get(0));
-				topic.setDate(getdate.GetNowDate());
+				topic.setDate(GetDate.GetNowDate());
 			 id=  dao.save(topic);
 			}else{System.err.println("发布话题未检索到用户");}
 			if(id.toString()!=null){
@@ -154,7 +153,7 @@ public class TopicCircleService {
 			TC.setTopicComment(topicComment);
 			TC.setTopic(topic2);
 			TC.setUser(user.get(0));
-			TC.setDate(getdate.GetNowDate());
+			TC.setDate(GetDate.GetNowDate());
 			dao.save(TC);
 			isSuccessful=true;
 		topic2.setTopicCommentCount(1);

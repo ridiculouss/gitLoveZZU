@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class GetDate {
 
 	//获取时间间隔天数
-	 public int getDataNum(String last,String now) throws ParseException {  
+	 public static int getDataNum(String last,String now) throws ParseException {  
 	        // TODO Auto-generated method stub  
 	        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
 	       
@@ -57,14 +57,14 @@ public class GetDate {
 	            
 	       return Integer.parseInt(String.valueOf(between_days));     
 	    }  
-	    public String GetNowDate(){
+	    public static String GetNowDate(){
 	    	   Date dt=new Date();
 	 		  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置显示格式
 	 		      String  nowTime= df.format(dt);
 	 		
 			return nowTime;}
 	    
-	    public String GetNowDate2(){
+	    public static String GetNowDate2(){
 	    	Date dt=new Date();
 	    	SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//设置显示格式
 	    	String  nowTime= df.format(dt);

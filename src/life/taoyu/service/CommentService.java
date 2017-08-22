@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ import persionalCenter.entity.UserInfo;
 import zzu.util.GetDate;
 @Transactional
 @Component(value = "Commentervice")
+@Scope(value = "prototype")
 public class CommentService {
 	@Resource(name = "user_Dao")
 	private Dao dao;
@@ -30,7 +32,7 @@ public class CommentService {
 	private Dao_taoyu TDao;
 	@Resource(name = "taoyuService")
 	private TaoyuService taoyuService;
-	private GetDate date=new GetDate();
+	
 	
 
 	// 查询一级评论
@@ -86,7 +88,7 @@ public class CommentService {
 			Comments_L1 CL1 = new Comments_L1();
 			CL1.setComments(CMD.getComments());
 			CL1.setAccount(account);
-			CL1.setCdate(date.GetNowDate());
+			CL1.setCdate(GetDate.GetNowDate());
 			g.getSetcomments_L1().add(CL1);
 			CL1.setCgoods(g);
 			// 增加评论数
@@ -126,7 +128,7 @@ public class CommentService {
 						comments.setNum_replies(comments.getNum_replies() + 1);
 						Comments_L2 CL2 = new Comments_L2();
 						CL2.setComments(CMD2.getComments());
-						CL2.setCdate(date.GetNowDate());
+						CL2.setCdate(GetDate.GetNowDate());
 						CL2.setCommented_id("L1" + "ZZU" + comments.getL1_Cid() + "");
 						CL2.setAccount(user.get(0).getAccount());
 						CL2.setComments_l1(comments);
@@ -166,7 +168,7 @@ public class CommentService {
 						}
 						Comments_L2 CL2 = new Comments_L2();
 						CL2.setComments(CMD2.getComments() + "@:" + strComments);
-						CL2.setCdate(date.GetNowDate());
+						CL2.setCdate(GetDate.GetNowDate());
 						CL2.setAccount(user.get(0).getAccount());
 						CL2.setCommented_id("L2ZZU" + comments2.getL2_Cid() + "");
 						CL2.setComments_l1(comments2.getComments_l1());

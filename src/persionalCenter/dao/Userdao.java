@@ -45,15 +45,15 @@ public class Userdao implements Dao{
 		 hibernateTemplate.flush();
 		return id;
 	}
-	//查询用户并返回用户对象
+	
 	@SuppressWarnings("unchecked")
-	public <T> List<T> query(String sql, String values1,String values2) {
+	public <T> List<T> query(String sql, Object[] str) {
 		List<T> list = new ArrayList<T>();
 		hibernateTemplate.clear();
 		hibernateTemplate.flush();
 		list.clear();
 	
-		 list=(List<T>) hibernateTemplate.find(sql, values1,values2);
+		 list=(List<T>) hibernateTemplate.find(sql, str);
 		
 		hibernateTemplate.flush();
 		
@@ -67,6 +67,7 @@ public class Userdao implements Dao{
 		list.clear();
 		
 		list=(List<T>) hibernateTemplate.find(sql, values);
+		
 		
 		hibernateTemplate.flush();
 		

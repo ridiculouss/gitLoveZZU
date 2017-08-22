@@ -9,7 +9,8 @@
 <style type="text/css">
 body {
 	text-align: center;
-	
+	 font-size:18px;
+    color: white;
 }
 </style>
 </head>

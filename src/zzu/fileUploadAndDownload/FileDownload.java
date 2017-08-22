@@ -115,6 +115,9 @@ class Download implements Runnable{
 		case "话题圈":
 			downloadimage="topicCircle";
 			break;
+		case "一起玩":
+			downloadimage="playTogether";
+			break;
 		
 
 		default:System.err.println("没有发来要下载哪个文件夹的图片，默认是头像");

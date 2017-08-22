@@ -32,26 +32,27 @@ public class TaoyuDao<T> implements Dao_taoyu {
 
 	//分页查询
 	@SuppressWarnings("unchecked")
-	public <T,S> List<T> hqlquery(String sql,S values, int num) {
+	public <T,S> List<T> hqlquery(String sql,S values, Integer num) {
 		 
-		List<T> goodslist=(List<T>) this.hibernateTemplate.execute(new HibernateCallback<Object>() {
+		List<T> list=(List<T>) this.hibernateTemplate.execute(new HibernateCallback<Object>() {
 
 			@Override
 			public Object doInHibernate(Session session) throws HibernateException {
 				Query query =session.createQuery(sql);
+				if(values!=null)
 				query.setParameter(0, values);
-				
+				if(num!=null){
 				query.setFirstResult(num);
 				query.setMaxResults(10);
-				
+				}
 			List<T> list= query.list();
 			if(list.size()==0){System.out.println("已经没有数据可查了");}
-			System.out.println("Test:"+list.size());
+			System.out.println("分页查询到:"+list.size()+"条数据");
 			
 				return list;
 			}
 		});
-		return goodslist;
+		return list;
   		  
 		
 	}

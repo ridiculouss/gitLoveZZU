@@ -20,24 +20,8 @@
 			让hibernate框架识别不同数据库的自己特有的语句
 		 -->
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-	
-<!-- 实体类类路径 -->
-<mapping class="life.parTime.entity.PartTimeJob"/>
 
-
-
-<mapping class="life.treeHole.entity.TreeHolePraise"/>
-<mapping class="life.treeHole.entity.TreeHoleCommentPraise"/>
-<mapping resource="life/treeHole/entity/treehole.hbm.xml"/>
-<mapping resource="life/treeHole/entity/treeholeComment.hbm.xml"/>
-
-
-
-
-
-<mapping resource="life/playTogether/entity/activity.hbm.xml" />
-
-
+<!-- 实体类类映射引入 -->
 <!-- 引入用户映射文件 -->
 <mapping resource="persionalCenter/entity/user.hbm.xml"></mapping>
 <mapping resource="persionalCenter/entity/userinfo.hbm.xml"></mapping>  
@@ -54,6 +38,21 @@
 <mapping resource="life/mytopiccircle/entity/theme.hbm.xml"></mapping>
 <mapping resource="life/mytopiccircle/entity/topic.hbm.xml"></mapping>
 <mapping resource="life/mytopiccircle/entity/topiccomment.hbm.xml"></mapping>
+
+<!-- 引入树洞映射文件 -->
+<mapping resource="life/treeHole/entity/treehole.hbm.xml"></mapping>
+<mapping resource="life/treeHole/entity/treeholeComment.hbm.xml"></mapping>
+<!-- 引入表白卡映射文件 -->
+<mapping resource="persionalCenter/confessionWall/entity/loveCard.hbm.xml"></mapping>
+<mapping resource="persionalCenter/confessionWall/entity/loveCardComment.hbm.xml"></mapping>
+<!-- 引入兼职映射文件 -->
+<mapping resource="life/parTime/entity/parttime.hbm.xml"></mapping>
+
+<!-- 引入一起玩映射文件 -->
+<mapping resource="life/playTogether/entity/group.hbm.xml"></mapping>
+<mapping resource="life/playTogether/entity/groupdynamic.hbm.xml"></mapping>
+<mapping resource="life/playTogether/entity/groupdynamicComment.hbm.xml"></mapping>
+
 <!-- 轮播 -->
 <mapping resource="zzu/adminAction/roast.hbm.xml"></mapping>
 

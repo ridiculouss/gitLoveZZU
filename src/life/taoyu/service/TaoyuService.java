@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +36,7 @@ import zzu.util.GetDate;
 
 @Transactional
 @Component(value = "taoyuService")
-
+@Scope(value = "prototype")
 public class TaoyuService {
 
 	@Resource(name = "user_Dao")
@@ -43,7 +44,7 @@ public class TaoyuService {
 	@Resource(name = "taoyuDao")
 	private Dao_taoyu TDao;
 	
-	private GetDate date=new GetDate();
+	
 
 
 	// 级联保存商品操作
@@ -57,7 +58,7 @@ public class TaoyuService {
 		List<User> list = dao.query(sql, values);
 
 		for (User user : list) {
-			goods.setGdate(date.GetNowDate());
+			goods.setGdate(GetDate.GetNowDate());
 			goods.setGsearch(goods.getGtype() + goods.getGname() + goods.getGcampus() + goods.getGdescribe());
 
 			goods.setGcomments(0);

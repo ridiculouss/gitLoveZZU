@@ -66,5 +66,20 @@ public class Getjson {
 			
 			return json;
 		} 
+		//由外部指定的通用级联属性过滤方法
+		public static <T> JSONObject Generaljsonarray(List<T> list,String action,String[] FilterProperties){
+			JsonConfig config = new JsonConfig();
+			config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+			config.setExcludes(FilterProperties);
+			
+			JSONArray values = JSONArray.fromObject(list,config);  
+			JSONObject json=new JSONObject();
+			json.put("result", action);
+			json.put("values", values);
+			System.out.println(values.toString());
+			
+			
+			return json;
+		} 
 		
 	}

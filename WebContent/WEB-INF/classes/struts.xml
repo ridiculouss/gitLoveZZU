@@ -18,21 +18,19 @@
 	<!-- 我的话题圈-->
 <include file="zzu/struts_xml/module.topicCircle.xml"></include>
 
+<!-- 树洞 -->
+<include file="zzu/struts_xml/module.treeHole.xml"></include>
 
+<!-- 表白卡 -->
+<include file="zzu/struts_xml/module.loveCard.xml"></include>
+<!-- 兼职 -->
+<include file="zzu/struts_xml/module.partTime.xml"></include>
 
-
-
+<!-- 一起玩 -->
+<include file="zzu/struts_xml/module.playTogether.xml"></include>
 
 
 <!-- 文件上传下载模块 -->
-<include file="com/zzu/struts/xml/module.fileDU.xml"/>
-<!-- 校园新闻首页图片上传下载模块 -->
-<include file="com/zzu/struts/xml/module.Activity.xml"/>
-<include file="com/zzu/struts/xml/module.img.xml"/>
-<include file="com/zzu/struts/xml/module.news.xml"/>
-<include file="com/zzu/struts/xml/module.partTimeJob.xml"/>
 
-<include file="com/zzu/struts/xml/module.treeHole.xml"/>
-<include file="com/zzu/struts/xml/module.Subject.xml"/>
 
 </struts>

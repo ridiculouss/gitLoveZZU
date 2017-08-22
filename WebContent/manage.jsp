@@ -97,6 +97,30 @@ body {
 					<a href="life/myTopicCircle/TopicComment.jsp" target="main1">话题评论</a>&nbsp;
 				</div>
 			</div>
+			
+			<div class="dropdown">
+				<button type="button" class="dropbtn">兼职模块</button>
+				<div class="dropdown-content">
+					<a href="life/PartTime/partTime.jsp" target="main1">兼职</a>&nbsp;
+				</div>
+			</div>
+			
+			<div class="dropdown">
+				<button type="button" class="dropbtn">树洞模块</button>
+				<div class="dropdown-content">
+					<a href="life/treeHole/Treehole.jsp" target="main1">树洞</a>&nbsp;
+					<a href="life/treeHole/TreeholeComment.jsp" target="main1">树洞评论</a>&nbsp;
+				</div>
+			</div>
+			<div class="dropdown">
+				<button type="button" class="dropbtn">表白墙模块</button>
+				<div class="dropdown-content">
+					<a href="persionalCenter/confessionWall/loveCard.jsp" target="main1">表白卡</a>&nbsp;
+					<a href="persionalCenter/confessionWall/loveCardComment.jsp" target="main1">表白卡评论</a>&nbsp;
+					
+				</div>
+			</div>
+			
 		</div>
 
 

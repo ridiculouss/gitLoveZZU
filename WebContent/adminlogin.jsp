@@ -48,7 +48,7 @@ body{
 						</nav>
 					</div>
 					<div class="column">
-						 <s:actionerror cssStyle="color:white"/><br/>
+						 <s:fielderror cssStyle="color:white"/><br/>
 						 <s:form id="loginform" action="adminAction"  method="post" namespace="/" >
 						账号:<input type="text" name="account" id="account"/><br/>
 						密码:<input type="password" name="password" id="password"/><br/>

@@ -1,54 +1,54 @@
 package life.treeHole.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import persionalCenter.entity.User;
 
-import org.springframework.stereotype.Component;
+public class TreeHoleComment implements Comparable<TreeHoleComment>{
+	private Integer treeHoleCommentId;//±íid
+	private String CommentContent;//ÆÀÂÛÄÚÈÝ
+	private String date;
+	private User user;
+	private TreeHole treehole;
+	public TreeHole getTreehole() {
+		return treehole;
+	}
+	public void setTreehole(TreeHole treehole) {
+		this.treehole = treehole;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 
-@Component(value="treeHoleComment")
-public class TreeHoleComment {
-	
-	private Integer treeHoleCommentid;
-	private String phone;
-	private String comment;
-	private Integer praiseCommentNumber;
-	
-	transient  private  TreeHole treeHole;
-	
-	public Integer getTreeHoleCommentid() {
-		return treeHoleCommentid;
+	public User getUser() {
+		return user;
 	}
-	public void setTreeHoleCommentid(Integer treeHoleCommentid) {
-		this.treeHoleCommentid = treeHoleCommentid;
+	public void setUser(User user) {
+		this.user = user;
 	}
-	
-	public String getPhone() {
-		return phone;
+	public Integer getTreeHoleCommentId() {
+		return treeHoleCommentId;
 	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setTreeHoleCommentId(Integer treeHoleCommentId) {
+		this.treeHoleCommentId = treeHoleCommentId;
 	}
-	public TreeHole getTreeHole() {
-		return treeHole;
+	public String getCommentContent() {
+		return CommentContent;
 	}
-	public void setTreeHole(TreeHole treeHole) {
-		this.treeHole = treeHole;
+	public void setCommentContent(String commentContent) {
+		CommentContent = commentContent;
 	}
-	public String getComment() {
-		return comment;
-	}
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-	public Integer getPraiseCommentNumber() {
-		return praiseCommentNumber;
-	}
-	public void setPraiseCommentNumber(Integer praiseCommentNumber) {
-		this.praiseCommentNumber = praiseCommentNumber;
-	}
-	
 
+	@Override
+	public String toString() {
+		return "TreeHoleComment [treeHoleCommentId=" + treeHoleCommentId + ", CommentContent=" + CommentContent
+				+ ", date=" + date + "]";
+	}
+	@Override
+	public int compareTo(TreeHoleComment o) {
+		// TODO Auto-generated method stub
+		return this.getTreeHoleCommentId().compareTo(o.getTreeHoleCommentId());
+	}
+	
 }

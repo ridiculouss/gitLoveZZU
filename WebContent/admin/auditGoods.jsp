@@ -26,7 +26,7 @@ td {
 <body>
 	<center>
 		<font size="5"><p>请输入搜索关键语句,为空则查询所有商品</p></font>
-		<form action="adminAction_search" method="post" namespace="/">
+		<form action="adminAction_searchGoods" method="post" namespace="/">
 			<font size="5"> 搜索:<input type="text" name="SearchGoods"
 				placeholder="例如:商品名/分类/校区/描述等"
 				style="width: 250px; height: 40px;" />
@@ -36,7 +36,7 @@ td {
 			
 		</form>
 		
-		<s:include value="searchResult.jsp"></s:include>
+		<s:include value="GoodsSearchResult.jsp"></s:include>
 		
 		
 	</center>

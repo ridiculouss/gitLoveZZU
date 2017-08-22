@@ -37,12 +37,16 @@
                 <result name="input" >adminlogin.jsp</result>
                 <result name="loginout" type="redirect">adminlogin.jsp</result>
                 <result name="returnUgoods" >/admin/auditGoods.jsp</result>
+                <result name="showPartTime" >/admin/PartTimeSearchResult.jsp</result>
+                <result name="partTime" >/admin/partTime.jsp</result>
+                
+                
             </action>
 		<!-- 轮播 -->
 		<action name="RoastingAction" class="Roasting">
 		<result name="ok">/admin/addRoast.jsp</result>
 		</action>
-		
+		<!-- 爬虫 -->
 		<action name="crawlerAction" class="crawler">
 		<result name="ok">test.jsp</result>
 		</action>

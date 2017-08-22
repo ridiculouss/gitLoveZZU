@@ -170,7 +170,7 @@ public class FileAction extends ActionSupport {
 		json.put("imageurl", imageurl);
 		Returndata.returndata(json);
 
-		return SUCCESS;
+		return null;
 
 	}
 
