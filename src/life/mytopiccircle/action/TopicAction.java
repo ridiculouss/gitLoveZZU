@@ -31,6 +31,7 @@ public class TopicAction extends ActionSupport {
         		   Topic t=new Topic();
         		   t.setTopicTitle(TopicTitle);
         		   t.setTopicText(TopicText);
+        		   t.setThembUser("0");
         		
         		   
         		  String topicId= TCS.PublishTopic(i, t, SessionID);
@@ -38,7 +39,7 @@ public class TopicAction extends ActionSupport {
         		  
         	   }else if(action.equals("≤È—Øª∞Ã‚")){
         		   Getjson g=new Getjson();
-        		   List<UserTopic>  topiclist=  TCS.queryTopic(i);
+        		   List<UserTopic>  topiclist=  TCS.queryTopic(i,SessionID);
         		   Returndata.returndata(g.Topicgetjsonarray3(topiclist, action));
         	   }
         	   

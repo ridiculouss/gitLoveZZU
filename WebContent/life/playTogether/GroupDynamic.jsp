@@ -17,7 +17,7 @@ body{text-align: center;}
 		groupId：<input type="text" name="groupId" /><br>
 		
 		action：<input type="text" name="action" value="发表说说"/><br>
-		SessionID：<input type="text" name="SessionID" value="f3dbf132-63d6-4263-90b4-85f5c4adfa94"/><br>  
+		SessionID：<input type="text" name="SessionID" value="f988fdc1-135f-4ae7-901e-def8d2c913e2"/><br>  
 		
         <input type="submit" value="提交" />
 	</form>
@@ -26,6 +26,7 @@ body{text-align: center;}
 	<form  method="post" action="GroupDynamicAction">
 		num:<input type="text" name="num" /><br>
 		groupId：<input type="text" name="groupId" /><br>
+		SessionID：<input type="text" name="SessionID" /><br>
 		
 		action：<input type="text" name="action" value="查询群动态"/><br>
 		

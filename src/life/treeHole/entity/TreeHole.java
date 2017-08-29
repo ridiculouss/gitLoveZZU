@@ -10,6 +10,8 @@ public class TreeHole{
 	private String treeHoleContent;//树洞内容
 	private int thembCount;//点赞量
 	private int commentCount;//评论量
+	private String ThembUser;//记录点赞人
+	private boolean Thembed;//是否已点赞
 	private String date;
 	private String campus;//校区
 	private User user;
@@ -20,6 +22,19 @@ public class TreeHole{
 	}
 	public void setSettreeholeComment(Set<TreeHoleComment> settreeholeComment) {
 		this.settreeholeComment = settreeholeComment;
+	}
+	
+	public String getThembUser() {
+		return ThembUser;
+	}
+	public void setThembUser(String thembUser) {
+		ThembUser = thembUser;
+	}
+	public boolean isThembed() {
+		return Thembed;
+	}
+	public void setThembed(boolean thembed) {
+		Thembed = thembed;
 	}
 	public String getDate() {
 		return date;
@@ -66,7 +81,8 @@ public class TreeHole{
 	@Override
 	public String toString() {
 		return "TreeHole [treeHoleId=" + treeHoleId + ", treeHoleContent=" + treeHoleContent + ", thembCount="
-				+ thembCount + ", commentCount=" + commentCount + ", date=" + date + ", campus=" + campus + "]";
+				+ thembCount + ", commentCount=" + commentCount + ", ThembUser=" + ThembUser + ", Thembed=" + Thembed
+				+ ", date=" + date + ", campus=" + campus + "]";
 	}
 
 	

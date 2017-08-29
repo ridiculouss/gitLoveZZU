@@ -5,7 +5,7 @@ import java.util.UUID;
 public class GetUUID {
 
 	//获取唯一标识符
-	public String getuuid(){
+	public static String getuuid(){
 		String uuid=UUID.randomUUID().toString();
 		return uuid;
 		

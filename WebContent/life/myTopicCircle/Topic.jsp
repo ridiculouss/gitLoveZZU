@@ -52,6 +52,7 @@ action指令<s:textfield name="action" value="上传话题图片"></s:textfield>
 	<br/>
 	<form action="TopicAction" method="post">
 	ThemeId:<input type="text" name="ThemeId" /><br/>
+	SessionID:<input type="text" name="SessionID" /><br/>
 	action:<input type="text" name="action" value="查询话题"/><br/>
 	<input type="submit" value="查询主题中所有话题"/>
 	

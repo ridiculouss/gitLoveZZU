@@ -5,13 +5,15 @@ import java.util.Set;
 
 public class Comments_L1 {
 
-	private int L1_Cid;// 一级评论表ID
+	private Integer L1_Cid;// 一级评论表ID
 	
 	private String account; //评论者唯一账户号	
 	private String comments;//   评论内容
 	private int num_replies; // 回复数量
 	private Goods Cgoods;
 	private int num_thumb;//    点赞数量
+	private String ThembUser;//记录点赞人
+	private boolean Thembed;//是否已点赞
 	private String Cdate;
 	private Set<Comments_L2> setcomments_L2=new HashSet<Comments_L2>();//使用set集合表示Comments_L1类
 
@@ -20,6 +22,19 @@ public class Comments_L1 {
 	}
 	public void setSetcomments_L2(Set<Comments_L2> setcomments_L2) {
 		this.setcomments_L2 = setcomments_L2;
+	}
+	
+	public String getThembUser() {
+		return ThembUser;
+	}
+	public void setThembUser(String thembUser) {
+		ThembUser = thembUser;
+	}
+	public boolean isThembed() {
+		return Thembed;
+	}
+	public void setThembed(boolean thembed) {
+		Thembed = thembed;
 	}
 	public String getAccount() {
 		return account;
@@ -41,13 +56,14 @@ public class Comments_L1 {
 		Cgoods = cgoods;
 	}
 	
-	public int getL1_Cid() {
+
+
+	public Integer getL1_Cid() {
 		return L1_Cid;
 	}
-	public void setL1_Cid(int l1_Cid) {
+	public void setL1_Cid(Integer l1_Cid) {
 		L1_Cid = l1_Cid;
 	}
-
 	public String getComments() {
 		return comments;
 	}
@@ -69,8 +85,8 @@ public class Comments_L1 {
 	@Override
 	public String toString() {
 		return "Comments_L1 [L1_Cid=" + L1_Cid + ", account=" + account + ", comments=" + comments + ", num_replies="
-				+ num_replies + ", Cgoods=" + Cgoods + ", num_thumb=" + num_thumb + ", Cdate=" + Cdate
-				+ ", setcomments_L2=" + setcomments_L2 + "]";
+				+ num_replies + ", Cgoods=" + Cgoods + ", num_thumb=" + num_thumb + ", ThembUser=" + ThembUser
+				+ ", Thembed=" + Thembed + ", Cdate=" + Cdate + "]";
 	}
 
 

@@ -80,10 +80,11 @@ public class FileUpload extends ActionSupport {
 	ExecutorService exec=Execfactory.getexec();
 
 	@Override
-	public String execute() {
+	public String execute() throws IOException {
 		 Pattern pattern = Pattern.compile("[0-9]*"); 
 		   boolean isSuccessful=true;
 		System.out.println(action+":"+images);
+		System.out.println("groupId="+groupId);
 		String realPath = request.getRealPath("/").substring(0,
 				request.getRealPath("/").lastIndexOf(request.getContextPath().replace("/", ""))) ;
 		BlockingQueue BQmadeimg=new BlockingQueue();//实例化阻塞队列
@@ -139,12 +140,9 @@ public class FileUpload extends ActionSupport {
 			System.out.println("线程池大小="+poolsize);
 			
              
-			try {
+			
 				Returndata.returnboolean(isSuccessful);
-			} catch (IOException e) {
-				System.err.println("FileUpload中io异常");
-				e.printStackTrace();
-			}
+			
 					
 
 		return null;

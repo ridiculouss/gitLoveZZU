@@ -20,9 +20,11 @@ import life.mytopiccircle.moudledriver.UserTheme;
 import life.mytopiccircle.moudledriver.UserTopic;
 import life.mytopiccircle.moudledriver.UserTopicComment;
 import life.taoyu.dao.Dao_taoyu;
+import life.taoyu.service.TaoyuService;
 import persionalCenter.dao.Dao;
 import persionalCenter.entity.User;
 import persionalCenter.entity.UserInfo;
+import persionalCenter.service.UserService;
 import zzu.util.GetDate;
 
 @Transactional
@@ -31,7 +33,8 @@ import zzu.util.GetDate;
 public class TopicCircleService {
 	@Resource(name = "user_Dao")
 	private Dao dao;
-	
+	@Resource(name="User_Service")
+	private UserService userService;
 	
 	//发布主题
 	public String PublishTheme( Theme theme, String SessionID){
@@ -104,15 +107,23 @@ public class TopicCircleService {
 		
 	}
 	//更新话题
-	public boolean updateTopic(Topic topic) {
+	public boolean updateTopic(Topic topic,String SessionID) {
 		boolean isSuccessful = false;
 		String sql="from Topic where TopicId=?";
 		List<Topic> topiclist=dao.query(sql, topic.getTopicId());
 		for (Topic topic2 : topiclist) {
 			if(topic.getTopicImg()!=null&&!topic.getTopicImg().isEmpty()){topic2.setTopicImg(topic.getTopicImg());}
 			if(topic.getTopicCommentCount()==1){topic2.setTopicCommentCount(topic2.getTopicCommentCount()+1);}
-			if(topic.getTopicThumbCount()==1){topic2.setTopicThumbCount(topic2.getTopicThumbCount()+1);}
-			if(topic.getTopicThumbCount()==0 && topic2.getTopicThumbCount()>0){topic2.setTopicThumbCount(topic2.getTopicThumbCount()-1);}
+			if(topic.getTopicThumbCount()==1){topic2.setTopicThumbCount(topic2.getTopicThumbCount()+1);
+			User user=userService.queryUser(SessionID);
+			    if(user==null){return false;}
+			    String[] thembuser=topic2.getThembUser().split("#");
+			    for (String string : thembuser) {
+					if(user.getUid().toString().equals(string)){return false;}
+				}
+			topic2.setThembUser(topic2.getThembUser()+"#"+user.getUid().toString());//记录点赞人id
+			}
+			//if(topic.getTopicThumbCount()==0 && topic2.getTopicThumbCount()>0){topic2.setTopicThumbCount(topic2.getTopicThumbCount()-1);}
 			
 			dao.update(topic2);
 			isSuccessful=true;
@@ -120,7 +131,7 @@ public class TopicCircleService {
 		return isSuccessful;
 	}
 	//查询主题中的所有话题
-	public List<UserTopic>  queryTopic(Integer i) {
+	public List<UserTopic>  queryTopic(Integer i,String SessionID) {
 		List<UserTopic> UPlist=new ArrayList<UserTopic>();
 		
 		String sql="from Theme where ThemeId=?";
@@ -137,6 +148,18 @@ public class TopicCircleService {
 			UPlist.add(UP);
 		}
 		Collections.reverse(UPlist);
+		//查询用户并检查修改已经被点赞数据的状态
+		User user=userService.queryUser(SessionID);
+		if(user!=null){
+			for(UserTopic up:UPlist){
+				String userId=up.getTopic().getThembUser();
+				if(userId==null){break;}
+				String[] uid=userId.split("#");
+				for (String d : uid) {
+					if(user.getUid().toString().equals(d)){up.getTopic().setThembed(true);}
+				}
+			}
+		}
 		System.out.println(UPlist);
 		return UPlist;
 	}
@@ -157,7 +180,7 @@ public class TopicCircleService {
 			dao.save(TC);
 			isSuccessful=true;
 		topic2.setTopicCommentCount(1);
-		updateTopic(topic2);
+		updateTopic(topic2,null);//更新话题评论量
 		}
 		return isSuccessful;
 	}

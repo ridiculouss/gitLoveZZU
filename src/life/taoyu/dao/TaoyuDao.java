@@ -39,8 +39,10 @@ public class TaoyuDao<T> implements Dao_taoyu {
 			@Override
 			public Object doInHibernate(Session session) throws HibernateException {
 				Query query =session.createQuery(sql);
-				if(values!=null)
+				if(values!=null){
 				query.setParameter(0, values);
+				
+				}
 				if(num!=null){
 				query.setFirstResult(num);
 				query.setMaxResults(10);
@@ -54,6 +56,28 @@ public class TaoyuDao<T> implements Dao_taoyu {
 		});
 		return list;
   		  
+		
+	}
+	//多条件查询
+	@SuppressWarnings("unchecked")
+	public <T,S> List<T> manyConditionshqlquery(String sql,String[] values) {
+		
+		List<T> list=(List<T>) this.hibernateTemplate.execute(new HibernateCallback<Object>() {
+			
+			@Override
+			public Object doInHibernate(Session session) throws HibernateException {
+				Query query =session.createQuery(sql);
+				for(int i=0;i<values.length;i++)
+					query.setParameter(i, values[i]);
+								
+				List<T> list= query.list();				
+				System.out.println("hql多条件查询到:"+list.size()+"条数据");
+				
+				return list;
+			}
+		});
+		return list;
+		
 		
 	}
 	public  List<T> adminhqlquery(String sql) {

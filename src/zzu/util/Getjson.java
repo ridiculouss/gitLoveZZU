@@ -27,7 +27,7 @@ public class Getjson {
 		return json;
 		} 
 	//json对象过滤级联属性
-	public <T> JSONObject getjsonobject(T j){
+	public static <T> JSONObject getjsonobject(T j){
 		JsonConfig config = new JsonConfig();
 		config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
 		config.setExcludes(new String[]{"user","setcomments_L1","cgoods","setorderitems","order"});

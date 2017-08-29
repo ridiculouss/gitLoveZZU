@@ -8,7 +8,7 @@ import java.util.List;
 public class Panduanstr {
 	
 	
-	
+	//拼接字符串中间隔ZZU
 	public String pinjie(List<String> imageurl){
 		StringBuilder URL = new StringBuilder();
 		 System.out.println("图片数量:"+imageurl.size()+",开始拼接");
@@ -24,6 +24,7 @@ public class Panduanstr {
 		return URL.toString();
 		
 	}
+	//分离字符串
 	public String[] fenli(String URL){
 		List<String> imageURL=new ArrayList<String>();
 		
@@ -40,54 +41,18 @@ public class Panduanstr {
 		return arr;
 		
 	} 
-public static void main(String[] args) {
-//	 String str="ABC#0#1"; 
-//	 if(str.indexOf("A") ==0){  
-//	 System.out.println("包含"); 
-//	 }else{ System.out.println("不包含"); 
-//	 } 
-//	 int i=str.indexOf("#");
-//	 System.out.println(i);
-	
-	
-	
-	
-	 String url1="http://localhost:8080/LoveZZU/image1";
-	 String url2="http://localhost:8080/LoveZZU/image2";
-	 String url3="http://localhost:8080/LoveZZU/image3";
-	 String url4="http://localhost:8080/LoveZZU/image4";
+	 public static String string2HexString(String strPart) {  
+	        StringBuffer hexString = new StringBuffer();  
+	        for (int i = 0; i < strPart.length(); i++) {  
+	            int ch = (int) strPart.charAt(i);  
+	            String strHex = Integer.toHexString(ch);  
+	            hexString.append(strHex);  
+	        }  
+	        return hexString.toString();  
+	    }  
 
-	 List<String> imageurl = new ArrayList();	 
-	 imageurl.add(url1);
-	 imageurl.add(url2);
-	 imageurl.add(url3);
-	 imageurl.add(url4);
-	 
-	 Panduanstr p=new Panduanstr();
-	String url= p.pinjie(imageurl);
-	String[] S= p.fenli(url);
-	
-	
-	 
-	 
-	 
-//	 System.out.println(imageurl.size()+"开始拼接");
-//for(int s=0;s<imageurl.size();s++){
-//	          String o= imageurl.get(s);
-//	           o+="#";
-//	           URL+=o;
-//	           System.out.println(URL);
-//}
-//	 
-//	 String s = new String(URL);   
-//     String a[] = s.split("#");  
-//    
-//     System.out.println(a.length+"开始分离");
-//for(int j=0;j<a.length;j++){
-//	
-//	  System.out.println(a[j].trim());  
-//	  
-//}
+public static void main(String[] args) {
+   System.out.println(string2HexString("韩伟"));
 	 
 	 
 }

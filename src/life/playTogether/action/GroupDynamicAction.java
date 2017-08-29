@@ -32,15 +32,15 @@ public class GroupDynamicAction extends ActionSupport{
 			GroupDynamic gd=new GroupDynamic();
 			gd.setTalk(talk);
 			String dynamicId=groupService.PublishTalk(gd,SessionID,id);
-			if(dynamicId!=null)System.out.println("发表说说成功");
+			if(dynamicId!=null)System.out.println("发表说说成功");else dynamicId="";
 			Returndata.returndata(dynamicId);
 		}else if(action.equals("查询群动态")){
 			Integer id=Integer.valueOf(groupId);
 			int n=Integer.valueOf(num);
-			List<UserDynamic> list=groupService.QueryDynamic(id,n);
+			List<UserDynamic> list=groupService.QueryDynamic(id,n,SessionID);
 			Returndata.returndata(Getjson.Generaljsonarray(list, action, new String[] { "group","user","setgroupDynamicComment" ,"setgroupDynamic"}));
 			
-		}
+		}else{System.err.println("群动态action不匹配");}
 		return null;
 	}
 	

@@ -105,7 +105,7 @@ public class UpdateImgToDB  implements Runnable{
 			Panduanstr p=new Panduanstr();
 			String str=p.pinjie(strlist);
 			topic.setTopicImg(str); 
-		isSuccessful=((TopicCircleService) S).updateTopic(topic);
+		isSuccessful=((TopicCircleService) S).updateTopic(topic,null);
 		
 		}
 		return isSuccessful;

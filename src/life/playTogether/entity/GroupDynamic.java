@@ -9,8 +9,10 @@ public class GroupDynamic {
 	private Integer dynamicId;//群动态id
 	private String talk;//说说
 	private String	talkImg;//说说的图片
-	private String	thembCount;//点赞量
-	private String	commentCount;//评论量
+	private int	thembCount;//点赞量
+	private int	commentCount;//评论量
+	private String ThembUser;//记录点赞人
+	private boolean Thembed;//是否已点赞
 	private String	date;//发表时间
 	private Group group;
 	private User user;
@@ -23,6 +25,20 @@ public class GroupDynamic {
 		this.setgroupDynamicComment = setgroupDynamicComment;
 	}
 	
+	
+	public String getThembUser() {
+		return ThembUser;
+	}
+	public void setThembUser(String thembUser) {
+		ThembUser = thembUser;
+	}
+
+	public boolean isThembed() {
+		return Thembed;
+	}
+	public void setThembed(boolean thembed) {
+		Thembed = thembed;
+	}
 	public User getUser() {
 		return user;
 	}
@@ -53,16 +69,17 @@ public class GroupDynamic {
 	public void setTalkImg(String talkImg) {
 		this.talkImg = talkImg;
 	}
-	public String getThembCount() {
+	
+	public int getThembCount() {
 		return thembCount;
 	}
-	public void setThembCount(String thembCount) {
+	public void setThembCount(int thembCount) {
 		this.thembCount = thembCount;
 	}
-	public String getCommentCount() {
+	public int getCommentCount() {
 		return commentCount;
 	}
-	public void setCommentCount(String commentCount) {
+	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
 	}
 	public String getDate() {
@@ -74,7 +91,8 @@ public class GroupDynamic {
 	@Override
 	public String toString() {
 		return "GroupDynamic [dynamicId=" + dynamicId + ", talk=" + talk + ", talkImg=" + talkImg + ", thembCount="
-				+ thembCount + ", commentCount=" + commentCount + ", date=" + date + "]";
+				+ thembCount + ", commentCount=" + commentCount + ", ThembUser=" + ThembUser + ", Thembed="
+				+ Thembed + ", date=" + date + ", setgroupDynamicComment=" + setgroupDynamicComment + "]";
 	}
 	
 }

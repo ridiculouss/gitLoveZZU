@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import life.taoyu.dao.Dao_taoyu;
 import persionalCenter.confessionWall.entity.LoveCard;
 import persionalCenter.confessionWall.entity.LoveCardComment;
 import persionalCenter.confessionWall.moudledriver.ImgComment;
@@ -18,6 +19,7 @@ import persionalCenter.dao.Dao;
 import persionalCenter.entity.User;
 import persionalCenter.entity.UserInfo;
 import zzu.util.GetDate;
+import zzu.util.Panduanstr;
 
 @Transactional
 @Component(value = "LoveCardService")
@@ -26,7 +28,8 @@ public class LoveCardService {
 	
 	@Resource(name = "user_Dao")
 	private Dao dao;
-	
+	@Resource(name = "taoyuDao")
+	private Dao_taoyu TDao;
 	//发布表白卡
 	public boolean PublishLoveCard(LoveCard l) {
 		boolean isSuccessful=false;
@@ -46,14 +49,15 @@ public class LoveCardService {
 	}
 //模糊搜索表白卡
 	public List<LoveCard> SearchLoveCard(String search) {
-		String sql="from LoveCard where search like  ? ";
-		String values="%"+search+"%";
-		List<LoveCard> loveCard=dao.query(sql, values);
+	
+		String sql="from LoveCard where senderName  like ? or lovedName like ?";
+		String[] value={search+"%",search+"%"};
+		List<LoveCard> loveCard=dao.query(sql, value);
 		String[] s=search.split("");
 		if(loveCard.size()==0 && s.length>1){//取字符串search的第二个字再次查询，
 			//因为如果数据库search字段为张飞刘备，而用户输入查询刘备张飞，这样是查不到的。而取其中一个字便能查出。缺点是更不精确了
 			sql="from LoveCard where search like  ? ";
-			 values="%"+s[1]+"%";
+			String values=s[0]+s[1]+"%";
 			 loveCard=dao.query(sql, values);
 			 System.out.println("第一次模糊查询未查到，取字符串第二个字再查得到:"+loveCard.size()+"个");
 		}

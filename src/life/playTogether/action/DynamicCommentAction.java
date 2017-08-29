@@ -1,5 +1,6 @@
 package life.playTogether.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import life.playTogether.entity.GroupDynamicComment;
 import life.playTogether.modeldriver.UserDynamicComment;
 import life.playTogether.service.GroupService;
+import zzu.themb.ThembModuel;
+import zzu.themb.ThembRecord;
 import zzu.util.Getjson;
 import zzu.util.Returndata;
 
@@ -39,6 +42,28 @@ public class DynamicCommentAction extends ActionSupport {
 			Integer id=Integer.valueOf(dynamicId);
 			List<UserDynamicComment> UDClist=groupService.QueryDynamicComment(id);
 			Returndata.returndata(Getjson.Generaljsonarray(UDClist, action, new String[] {"user","group" ,"groupDynamic"}));
+		}else if(action.equals("动态点赞")){
+			boolean isSuccessful=false;
+			List<ThembModuel> list= ThembRecord.getvalue(SessionID);
+			if(list!=null){
+				System.out.println("用户动态点赞查询hashmap中是否有记录");
+				for (ThembModuel thembModuel : list) {
+					if(thembModuel.getAction().equals("动态点赞") && thembModuel.getId().equals(dynamicId)){
+						isSuccessful=true;
+						System.out.println("hashmap中查到有记录，直接返回true");
+					}
+				}
+			}else{
+			Integer id=Integer.valueOf(dynamicId);
+			 isSuccessful=groupService.ThembDynamic(id,SessionID);
+			 ThembModuel tm=ThembModuel.getThembModuel(action, dynamicId);
+			 //记录到hashmap
+			 list=new ArrayList<>();
+			 list.add(tm);
+			 ThembRecord.addkeyvalue(SessionID, list);
+			 System.out.println("动态点赞查询时数据库是否点赞，并记录到hashmap");
+			}
+			Returndata.returnboolean(isSuccessful);
 		}
 
 		return null;

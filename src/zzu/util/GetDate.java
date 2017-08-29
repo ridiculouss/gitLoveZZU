@@ -70,9 +70,23 @@ public class GetDate {
 	    	String  nowTime= df.format(dt);
 	    	
 	    	return nowTime;}
-	  
+	 //º∆À„∑÷÷”≤Ó
+	    public static int getmin(String fromDate,String toDate) throws ParseException{
+	    	SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");//»Á2016-08-10 20:40 
+	    	
+	    	long from = simpleFormat.parse(fromDate).getTime();  
+	    	long to = simpleFormat.parse(toDate).getTime();  
+	    	int minutes = (int) ((to - from)/(1000 * 60));  
+	    	return minutes;
+	    }
 	    public static void main(String[] args) {
 	    	GetDate g=new GetDate();
-	    	System.out.println(g.GetNowDate2());
+	    	//System.out.println(g..getDataNum(last, now));
+	    	try {
+				System.out.println(g.getmin("2016-05-01 12:01:00", "2016-05-01 12:50:00"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 }

@@ -90,8 +90,8 @@ public class Querygoods extends ActionSupport {
 		  
 	  }else if (action != null && !action.equals("") && sql==null) {
 
-			sql = "from Goods where Gsearch like ? order by Goods_id desc";
-			action = "%" + action + "%";
+			sql = "from Goods where Gsearch like ?  order by Goods_id desc";
+			action = action + "%";
 			list = taoyuService.query(action, num, sql);
 			action = "Ä£ºýËÑË÷ÉÌÆ·";
 			

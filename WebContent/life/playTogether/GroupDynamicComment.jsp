@@ -17,7 +17,7 @@ body{text-align: center;}
 		dynamicId：<input type="text" name="dynamicId" /><br>
 		
 		action：<input type="text" name="action" value="发表动态评论"/><br>
-		SessionID：<input type="text" name="SessionID" value="f3dbf132-63d6-4263-90b4-85f5c4adfa94"/><br>  
+		SessionID：<input type="text" name="SessionID" value="f988fdc1-135f-4ae7-901e-def8d2c913e2"/><br>  
 		
         <input type="submit" value="提交" />
 	</form>

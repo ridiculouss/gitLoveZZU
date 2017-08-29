@@ -64,7 +64,7 @@ public class PartTimeService {
 	public List<PartTime> SearchPartTime(String search) {
 		List<PartTime> p=new ArrayList<PartTime>();
 		String sql="from PartTime where title like ? order by partTimeId desc";
-		String values="%"+search+"%";
+		String values=search+"%";
 		List<PartTime> partTime=dao.query(sql, values);
 		for (int i=0;i<partTime.size();i++) {
 			if(partTime.get(i).getStatus().equals("ÉóºËÍ¨¹ý")){p.add(partTime.get(i));}

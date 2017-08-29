@@ -1,5 +1,6 @@
 package life.mytopiccircle.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import life.mytopiccircle.entity.Topic;
 import life.mytopiccircle.moudledriver.UserTopicComment;
 import life.mytopiccircle.service.TopicCircleService;
+import zzu.themb.ThembModuel;
+import zzu.themb.ThembRecord;
 import zzu.util.Getjson;
 import zzu.util.Returndata;
 
@@ -43,15 +46,29 @@ public class TopicCommentAction extends ActionSupport {
 			boolean isSuccessful = TCS.PublishTopicComment(topicId, TopicComment, SessionID);
 			Returndata.returnboolean(isSuccessful);
 		} else if (action.equals("话题点赞")) {
-			if (!ThumbNum.equals("1") && !ThumbNum.equals("0")) {
-				System.err.println("ThumbNum不是1或0");
-				return null;
-			}
+			boolean isSuccessful=false;
+			List<ThembModuel> list= ThembRecord.getvalue(SessionID);
+			if(list!=null){
+				System.out.println("用户话题点赞查询hashmap中是否有记录");
+				for (ThembModuel thembModuel : list) {
+					if(thembModuel.getAction().equals("话题点赞") && thembModuel.getId().equals(topicId.toString())){
+						isSuccessful=true;
+						System.out.println("hashmap中查到有记录，直接返回true");
+					}
+				}
+			}else{
 			Topic topic = new Topic();
 			topic.setTopicId(topicId);
 			Integer thumbnum = Integer.valueOf(ThumbNum);
 			topic.setTopicThumbCount(thumbnum);
-			boolean isSuccessful = TCS.updateTopic(topic);
+			 isSuccessful = TCS.updateTopic(topic,SessionID);
+			 //记录到hashmap
+			 ThembModuel tm=ThembModuel.getThembModuel(action, topicId.toString());
+			 list=new ArrayList<>();
+			 list.add(tm);
+			 ThembRecord.addkeyvalue(SessionID, list);
+			 System.out.println("话题点赞查询时数据库是否点赞，并记录到hashmap");
+			}
 			Returndata.returnboolean(isSuccessful);
 
 		} else if (action.equals("查询话题评论")) {

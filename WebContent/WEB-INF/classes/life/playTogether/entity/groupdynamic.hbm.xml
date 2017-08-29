@@ -12,6 +12,7 @@
      <property name="talkImg"></property>
      <property name="thembCount"></property>
      <property name="commentCount"></property>
+     <property name="ThembUser" column="ThembUser" length="2660"></property>
      
      <property name="date"></property>
    

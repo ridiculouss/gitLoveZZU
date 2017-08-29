@@ -33,7 +33,7 @@ public class TreeHoleAction extends ActionSupport {
 			 Returndata.returnboolean(isSuccessful);
 		
 		 }else if(action.equals("²éÑ¯Ê÷¶´")){
-			 List<TreeHole> treeHole= TreeHoleService.QueryAllTreeHole();
+			 List<TreeHole> treeHole= TreeHoleService.QueryAllTreeHole(SessionID);
 			
 			Returndata.returndata( Getjson.Generaljsonarray(treeHole, action, new String[]{"user","settreeholeComment"}));
 		

@@ -51,7 +51,7 @@ public class Comments_L1 extends ActionSupport implements ModelDriven<L1_Comment
 		if (CMD.getAction().equals("querycomments_L1")) {
 			CMD.setSql("from Comments_L1 where GC_id=? order by L1_Cid desc");
 			CMD.setValues(CMD.getGoods_id().toString());
-			List<Ucomments> commentslist = commentService.querycomments(CMD.getSql(), CMD.getValues(), CMD.getNum());
+			List<Ucomments> commentslist = commentService.querycomments(CMD);
 			if (commentslist != null) {
 				CMD.setAction("一级评论");
 				comments = jsonarray.getjsonarray(commentslist, CMD.getAction());
@@ -65,18 +65,8 @@ public class Comments_L1 extends ActionSupport implements ModelDriven<L1_Comment
 			CMD.setValues(CMD.getGoods_id());
 			Serializable id = commentService.postcomments(CMD);
 
-			if (id != null) {
-
-				CMD.setSql("from Comments_L1 where L1_Cid=?");
-				List<Ucomments> commentslist = commentService.querycomments(CMD.getSql(), id, 0);
-				CMD.setAction("一级评论");
-				comments = jsonarray.getjsonarray(commentslist, CMD.getAction());
-			} else {
-				System.out.println("没有查询到刚才发表的一级评论");
-			}
-
-		} else {
-			System.out.println("Comments请求条件没有符合的");
+		comments=Getjson.getjsonobject(id);
+			
 		}
 
 		// 返回数据

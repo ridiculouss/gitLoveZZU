@@ -26,7 +26,7 @@ public static void returndata(Object o) throws IOException{
 				out.print(o);
 				out.flush();
 				out.close();
-				System.out.println("返回app数据成功");
+				System.out.println("返回app数据");
 }
 //返回布尔数据
 public static void returnboolean(boolean isSuccessful) throws IOException{
@@ -41,6 +41,6 @@ public static void returnboolean(boolean isSuccessful) throws IOException{
 	out.println(json);
 	out.flush();
 	out.close();
-	System.out.println("返回app数据成功");
+	System.out.println("返回app数据成功"+isSuccessful);
 }
 }

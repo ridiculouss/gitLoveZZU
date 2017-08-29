@@ -12,6 +12,7 @@
      <property name="thembCount"></property>
      <property name="commentCount"></property>
      <property name="campus"></property>
+     <property name="ThembUser"></property>
      <property name="date"></property>
    
       <many-to-one name="user" class="persionalCenter.entity.User" column="UserTreeHole_fkey" lazy="false"></many-to-one>

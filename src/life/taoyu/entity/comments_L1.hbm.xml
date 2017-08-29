@@ -12,6 +12,7 @@
      <property name="num_replies"></property>
        <property name="num_thumb"></property>
        <property name="account"></property>
+       <property name="ThembUser"></property>
      <property name="Cdate"></property>
 
    <many-to-one name="Cgoods" class="life.taoyu.entity.Goods" column="GC_id" lazy="false">

@@ -19,6 +19,7 @@ import life.treeHole.entity.TreeHole;
 import life.treeHole.entity.TreeHoleComment;
 import persionalCenter.dao.Dao;
 import persionalCenter.entity.User;
+import persionalCenter.service.UserService;
 import zzu.util.GetDate;
 
 @Transactional
@@ -28,7 +29,8 @@ public class TreeHoleService {
 	
 	@Resource(name = "user_Dao")
 	private Dao dao;
-	
+	@Resource(name="User_Service")
+	private UserService userService;
 	//发布树洞
 	public boolean PublishTreeHole(TreeHole treeHole, String SessionID) {
 		Serializable id=null;
@@ -39,15 +41,28 @@ public class TreeHoleService {
 		treeHole.setUser(user.get(0));
 		//user.get(0).getSettreehole().add(treeHole);
 		treeHole.setDate(GetDate.GetNowDate());
+		treeHole.setThembUser("0");
 		id=dao.save(treeHole);
 		if(id!=null){isSuccessful=true;System.out.println("发布树洞成功");} 
 		return isSuccessful;
 	}
 //查询所有树洞
-	public List<TreeHole> QueryAllTreeHole() {
+	public List<TreeHole> QueryAllTreeHole(String SessionID) {
 		String sql="from TreeHole where TreeHoleId !=?";
 		List<TreeHole> treehole=dao.query(sql, 0);
 		Collections.reverse(treehole);
+		//检查用户是否点赞过该内容
+		User user=userService.queryUser(SessionID);
+		if(user!=null){
+			for (TreeHole th : treehole) {
+				String uid=th.getThembUser();
+				if(uid==null){break;}
+				String[] id=uid.split("#");
+				for (String d : id) {
+					if(user.getUid().toString().equals(d)){th.setThembed(true);};
+				}
+			}
+		}
 		return treehole;
 		
 	}
@@ -129,15 +144,19 @@ public class TreeHoleService {
 		
 	}
 	//树洞点赞
-	public boolean ThembTreeHole(Integer treeHoleId, String sessionID) {
+	public boolean ThembTreeHole(Integer treeHoleId, String SessionID) {
 		boolean isSuccessful=false;
-		String sql="from User where SessionID =?";
-		List<User> user=dao.query(sql, sessionID);
-		if(user.size()==0){System.err.println("树洞点赞未检索到用户");}
-		sql="from TreeHole where TreeHoleId=?";
+		User user=userService.queryUser(SessionID);
+		if(user==null){return false;}
+		String sql="from TreeHole where TreeHoleId=?";
 		List<TreeHole> treeHole=dao.query(sql, treeHoleId);
 		for (TreeHole treeHole2 : treeHole) {
+			String[] thembuser=treeHole2.getThembUser().split("#");
+			         for (String string : thembuser) {
+						if(user.getUid().toString().equals(string)){return false;}
+					}
 			treeHole2.setThembCount(treeHole2.getThembCount()+1);
+			treeHole2.setThembUser(treeHole2.getThembUser()+"#"+user.getUid().toString());
 			dao.update(treeHole2);
 			isSuccessful=true;
 		}

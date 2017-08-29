@@ -33,6 +33,12 @@
         
     </filter-mapping>
 
+
+   <!-- 服务器监听器 -->
+  <listener>
+        <listener-class>zzu.themb.Delmap</listener-class>
+    </listener>
+   
     
       <welcome-file-list>
     <welcome-file>manage.jsp</welcome-file>

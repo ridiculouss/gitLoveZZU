@@ -1,5 +1,6 @@
 package life.treeHole.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import life.treeHole.entity.TreeHole;
 import life.treeHole.entity.TreeHoleComment;
 import life.treeHole.service.TreeHoleService;
+import zzu.themb.ThembModuel;
+import zzu.themb.ThembRecord;
 import zzu.util.Getjson;
 import zzu.util.Returndata;
 @Transactional
@@ -36,8 +39,26 @@ public class TreeHoleCommentAction extends ActionSupport {
 			Returndata.returndata( Getjson.Generaljsonarray(treeHoleComment, action, new String[]{"user","treehole"}));
 			
 		}else if(action.equals("树洞点赞")){
+			boolean isSuccessful=false;
+			List<ThembModuel> list= ThembRecord.getvalue(SessionID);
+			if(list!=null){
+				System.out.println("用户树洞点赞查询hashmap中是否有记录");
+				for (ThembModuel thembModuel : list) {
+					if(thembModuel.getAction().equals("树洞点赞") && thembModuel.getId().equals(treeHoleId)){
+						isSuccessful=true;
+						System.out.println("hashmap中查到有记录，直接返回true");
+					}
+				}
+			}else{
 			Integer id=Integer.valueOf(treeHoleId);
-			boolean isSuccessful=TreeHoleService.ThembTreeHole(id, SessionID);
+			 isSuccessful=TreeHoleService.ThembTreeHole(id, SessionID);
+			//记录到hashmap
+			 ThembModuel tm=ThembModuel.getThembModuel(action, treeHoleId);
+			 list=new ArrayList<>();
+			 list.add(tm);
+			 ThembRecord.addkeyvalue(SessionID, list);
+			 System.out.println("树洞点赞查询时数据库是否点赞，并记录到hashmap");
+			}
 			Returndata.returnboolean(isSuccessful);
 		}else{System.err.println("树洞评论action不匹配");}
 		

@@ -42,7 +42,7 @@ public class GroupAction extends ActionSupport{
 			g.setLabel(label);
 			g.setCampus(campus);
 			String groupId=groupService.CreatGroup(g,SessionID);
-			if(groupId!=null)System.out.println("创建群成功!");
+			if(groupId!=null)System.out.println("创建群成功!");else groupId="";
 			Returndata.returndata(groupId);
 		}else if(action.equals("查询群组")){
 			Integer n=Integer.valueOf(num);
@@ -74,6 +74,10 @@ public class GroupAction extends ActionSupport{
 		}else if(action.equals("退出群组")){
 			Integer id=Integer.valueOf(groupId);
 			boolean isSuccessful=groupService.QuitGroup(id,SessionID);
+			Returndata.returnboolean(isSuccessful);
+		}else if(action.equals("是否是群主")){
+			Integer id=Integer.valueOf(groupId);
+			boolean isSuccessful=groupService.isGroupOwner(id,SessionID);
 			Returndata.returnboolean(isSuccessful);
 		}
 		return null;

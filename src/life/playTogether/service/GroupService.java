@@ -71,6 +71,7 @@ public class GroupService {
 		List<Group> group=dao.query(sql, groupId);
 		if(user.size()==0 || group.size()==0){System.err.println("发表说说用户或群组未检索到");return null;}
 		gd.setDate(GetDate.GetNowDate());
+		gd.setThembUser("0");
 		gd.setGroup(group.get(0));
 		gd.setUser(user.get(0));
 		Serializable id=dao.save(gd);
@@ -128,7 +129,7 @@ public class GroupService {
 //不分页查询所有群组
 		
 //分页查询群动态
-		public List<UserDynamic> QueryDynamic(Integer id, int num) {
+		public List<UserDynamic> QueryDynamic(Integer id, int num,String SessionID) {
 			List<UserDynamic> UDlist=new ArrayList<UserDynamic>();
 	          String sql="from GroupDynamic where GroupGroupDynamic_fkey=?";
 	          List<GroupDynamic>  groupDynamiclist=TDao.hqlquery(sql, id, num);
@@ -141,6 +142,19 @@ public class GroupService {
 						}
 						UDlist.add(ud);
 				}
+              //查询用户
+              User user=userService.queryUser(SessionID);
+              if(user!=null){
+            	  for(UserDynamic ud:UDlist){
+            		  String UserId=ud.getGroupDynamic().getThembUser();
+            		  if(UserId ==null){break;}
+            		  String[] uid=UserId.split("#");
+            			  for (String d : uid) {
+							  if(user.getUid().toString().equals(d)){ud.getGroupDynamic().setThembed(true);}
+						} 
+            	  }
+            	  System.out.println("查询动态是否被该用户点赞");
+              }else{System.out.println("用户未发来SesionID,对所查数据不检查是否点赞");}
 			return UDlist;
 		}
 //发表动态的评论
@@ -155,9 +169,10 @@ public class GroupService {
 		GDC.setGroupDynamic(groupDynamic.get(0));
 		GDC.setDate(GetDate.GetNowDate());
 		Serializable id=dao.save(GDC);
+		groupDynamic.get(0).setCommentCount(groupDynamic.get(0).getCommentCount()+1);
+		dao.update(groupDynamic.get(0));//动态的评论量+1
 			if(id!=null){return true;}
 			return false;
-			
 		}
 //查询动态评论
 		public List<UserDynamicComment> QueryDynamicComment(Integer id) {
@@ -282,17 +297,50 @@ public class GroupService {
 						group.setMember(member);
 						dao.update(group);
 						System.out.println("群主退出群组");
-				}else{//其他成员退群,则删除member中他的id
+				}else if(user.size()!=0){//其他成员退群,则删除member中他的id
+					List<String> newmember=new ArrayList<String>();
 					for (String s : idlist) {
-						if(user.get(0).getUid().toString().equals(s)){idlist.remove(s);}
+						if(!user.get(0).getUid().toString().equals(s)){newmember.add(s);}
 					}
-					String member=p.pinjie(idlist);
+					String member=p.pinjie(newmember);
 					group.setMember(member);
 					dao.update(group);
 					System.out.println("其他成员退出群组");
-				}
+				}else{System.err.println("用户未检索到");return false;}
 			}
 			return true;
+			
+		}
+//动态点赞		
+		public boolean ThembDynamic(Integer id, String sessionID) {
+			User user=userService.queryUser(sessionID);
+			String sql="from GroupDynamic where dynamicId=?";
+			List<GroupDynamic> dynamic=dao.query(sql, id);
+			for (GroupDynamic groupDynamic : dynamic) {
+				String[] thembUser=groupDynamic.getThembUser().split("#");				
+				for (String string : thembUser) {
+					if(user.getUid().toString().equals(string)){ return false;}
+				}
+				//点赞量+1
+				groupDynamic.setThembCount(groupDynamic.getThembCount()+1);
+				//记录点赞人id				
+				groupDynamic.setThembUser(groupDynamic.getThembUser()+"#"+user.getUid().toString());
+				dao.update(groupDynamic);
+				return true;
+			}
+			return false;
+		}
+//判断是否是群主
+		public boolean isGroupOwner(Integer id, String sessionID) {
+			String sql="from User where SessionID=?";
+			List<User> user=dao.query(sql, sessionID);
+			for (User user2 : user) {
+				Set<Group> group=user2.getSetgroup();
+				for (Group group2 : group) {
+					if(group2.getGroupId()==id)return true;
+				}
+			}
+			return false;
 			
 		}
 }

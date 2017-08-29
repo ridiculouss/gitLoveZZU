@@ -13,17 +13,37 @@ public class Topic {
 	private String TopicText;// 话题文字内容
 	private int TopicCommentCount ;//话题评论量
 	private int TopicThumbCount ;//话题点赞量
+	private String ThembUser;//记录点赞人
+	private boolean Thembed;//是否已点赞
 	private String date;
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
+	
 
 	private Theme theme;
 	private User user;
+	
+	public String getThembUser() {
+		return ThembUser;
+	}
+
+	public void setThembUser(String thembUser) {
+		ThembUser = thembUser;
+	}
+
+	public boolean isThembed() {
+		return Thembed;
+	}
+
+	public void setThembed(boolean thembed) {
+		Thembed = thembed;
+	}
+
+	public String getDate() {
+		return date;
+	}
+	
+	public void setDate(String date) {
+		this.date = date;
+	}
 	private Set<TopicComment> settopiccomment=new HashSet<TopicComment>();//使用set集合表示topicComment类
 	
 	public Set<TopicComment> getSettopiccomment() {
@@ -101,6 +121,7 @@ public class Topic {
 	@Override
 	public String toString() {
 		return "Topic [TopicId=" + TopicId + ", TopicTitle=" + TopicTitle + ", TopicImg=" + TopicImg + ", TopicText="
-				+ TopicText + ", TopicCommentCount=" + TopicCommentCount + ", TopicThumbCount=" + TopicThumbCount +"date="+date+ "]";
+				+ TopicText + ", TopicCommentCount=" + TopicCommentCount + ", TopicThumbCount=" + TopicThumbCount
+				+ ", ThembUser=" + ThembUser + ", Thembed=" + Thembed + ", date=" + date + "]";
 	}
 }

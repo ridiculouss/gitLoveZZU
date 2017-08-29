@@ -11,6 +11,15 @@
 		 <action name="TreeHoleAction" class="TreeHoleAction"></action>
 		
 		 <action name="TreeHoleCommentAction" class="TreeHoleCommentAction"></action>
+		 
+		 
+		 
+		 
+		 
+		 
+		 <action name="sessionaction_*" class="sessionaction" method="{1}">
+		 <result name="ok">/session.jsp</result>
+		 </action>
 		
 	</package>
 	

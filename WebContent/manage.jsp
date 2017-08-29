@@ -120,6 +120,15 @@ body {
 					
 				</div>
 			</div>
+			<div class="dropdown">
+				<button type="button" class="dropbtn">一起玩模块</button>
+				<div class="dropdown-content">
+					<a href="life/playTogether/Group.jsp" target="main1">群组</a>&nbsp;
+					<a href="life/playTogether/GroupDynamic.jsp" target="main1">群组动态</a>&nbsp;
+					<a href="life/playTogether/GroupDynamicComment.jsp" target="main1">群组动态评论</a>&nbsp;
+					
+				</div>
+			</div>
 			
 		</div>
 
