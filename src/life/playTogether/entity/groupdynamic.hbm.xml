@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+    <hibernate-mapping>
+    <class name="life.playTogether.entity.GroupDynamic" table="t_groupDynamic" dynamic-update="true">
+    <id name="dynamicId" >
+    <generator class="native"></generator>
+    </id>
+     <property name="talk"></property>
+     <property name="talkImg"></property>
+     <property name="thembCount"></property>
+     <property name="commentCount"></property>
+     <property name="ThembUser" column="ThembUser" length="2660"></property>
+     
+     <property name="date"></property>
+   
+      <many-to-one name="group" class="life.playTogether.entity.Group" column="GroupGroupDynamic_fkey" lazy="false"></many-to-one>
+      <many-to-one name="user" class="persionalCenter.entity.User" column="UserGroupDynamic_fkey" lazy="false"></many-to-one>
+   
+   <!-- 配置关联动态评论表 -->
+	<set name="setgroupDynamicComment" cascade="all" inverse="true" >
+		<key column="GroupDynamicComment_fkey"></key>
+		<one-to-many  class="life.playTogether.entity.GroupDynamicComment"/>
+		</set>
+   
+   </class>
+   </hibernate-mapping>

@@ -65,7 +65,8 @@ public class L2_Comments_Modeldriver {
 	@Override
 	public String toString() {
 		return "L2_Comments_Modeldriver [action=" + action + ", SessionID=" + SessionID + ", comments=" + comments
-				+ ", L1_Cid=" + L1_Cid + ", L2_Cid=" + L2_Cid + "]";
+				+ ", L1_Cid=" + L1_Cid + ", L2_Cid=" + L2_Cid + ", sql=" + sql + ", values=" + values + ", ThumbNum="
+				+ ThumbNum + "]";
 	}
 	
 }

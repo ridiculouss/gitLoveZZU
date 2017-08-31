@@ -14,6 +14,7 @@
 		<property name="num_thumb"></property>
 		<property name="account"></property>
 		<property name="commented_id"></property>
+		<property name="ThembUser"></property>
 		<property name="Cdate"></property>
 		
 		<many-to-one name="comments_l1" class="life.taoyu.entity.Comments_L1"

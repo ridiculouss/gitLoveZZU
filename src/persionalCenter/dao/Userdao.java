@@ -11,14 +11,17 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
-
+@Transactional
 @Repository(value="user_Dao")
+@Scope(value="prototype")
 public class Userdao implements Dao{
 
 	@Resource(name="hibernateTemplate")
@@ -42,15 +45,15 @@ public class Userdao implements Dao{
 		 hibernateTemplate.flush();
 		return id;
 	}
-	//查询用户并返回用户对象
+	
 	@SuppressWarnings("unchecked")
-	public <T> List<T> query(String sql, String values1,String values2) {
+	public <T> List<T> query(String sql, Object[] str) {
 		List<T> list = new ArrayList<T>();
 		hibernateTemplate.clear();
 		hibernateTemplate.flush();
 		list.clear();
 	
-		 list=(List<T>) hibernateTemplate.find(sql, values1,values2);
+		 list=(List<T>) hibernateTemplate.find(sql, str);
 		
 		hibernateTemplate.flush();
 		
@@ -64,6 +67,7 @@ public class Userdao implements Dao{
 		list.clear();
 		
 		list=(List<T>) hibernateTemplate.find(sql, values);
+		
 		
 		hibernateTemplate.flush();
 		

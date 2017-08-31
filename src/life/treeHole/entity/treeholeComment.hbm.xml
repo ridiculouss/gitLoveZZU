@@ -2,22 +2,19 @@
 <!DOCTYPE hibernate-mapping PUBLIC 
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<hibernate-mapping>
-	<!-- 1 配置类和表对应 
-		class标签
-		name属性：实体类全路径
-		table属性：数据库表名称
-	-->
-	<class name="life.treeHole.entity.TreeHoleComment" table="t_treeHoleComment">
-		<id name="treeHoleCommentid" column="treeHoleCommentid" >
-			<generator class="native"></generator>
-		</id>
-		<property name="phone" column="phone"></property>
-		<property name="comment" column="comment"></property>
-		<property name="praiseCommentNumber" column="praiseCommentNumber"></property>
-		
-   <!-- 配置映射用户信息表 -->
-		
-		<many-to-one name="treeHole" class="life.treeHole.entity.TreeHole" column="treeHoleid"></many-to-one>
-	</class>
-</hibernate-mapping>
+    
+    <hibernate-mapping>
+    <class name="life.treeHole.entity.TreeHoleComment" table="t_treeholeComment" dynamic-update="true">
+    <id name="treeHoleCommentId" >
+    <generator class="native"></generator>
+    </id>
+     <property name="CommentContent"></property>
+     <property name="date"></property>
+    
+   
+      <many-to-one name="user" class="persionalCenter.entity.User" column="UserTreeHoleComment_fkey" lazy="false"></many-to-one>
+      <many-to-one name="treehole" class="life.treeHole.entity.TreeHole" column="TreeHoleTreeHoleComment_fkey" lazy="false"></many-to-one>
+   
+   
+   </class>
+   </hibernate-mapping>

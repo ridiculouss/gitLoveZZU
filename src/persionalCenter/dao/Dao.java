@@ -10,7 +10,7 @@ public interface Dao {
 	//保存操作
 	public <T> Serializable save(T t);
 	//查询操作
-	public <T> List<T> query(String sql,String values1,String values2);
+	public <T> List<T> query(String sql,Object[] values);
 	public <T,S> List<T> query(String sql,S values);
 	//更新操作
 	public <T> T update(T t);

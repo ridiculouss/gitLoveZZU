@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	
+	<class name="zzu.adminAction.Roast" table="t_roast" dynamic-update="true">
+		<id name="roastId" column="roastId" >
+			<generator class="native"></generator>
+		</id>
+		<property name="imageUrl" column="imageUrl"></property>
+		<property name="newsUrl" column="newsUrl"></property>
+		<property name="moduleIdentifier" column="moduleIdentifier"></property>
+
+	</class>
+</hibernate-mapping>

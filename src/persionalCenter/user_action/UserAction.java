@@ -23,6 +23,7 @@ import net.sf.json.JSONObject;
 import persionalCenter.entity.User;
 import persionalCenter.service.UserService;
 import zzu.util.Judge_character;
+import zzu.util.Returndata;
 
 
 //注册功能
@@ -40,8 +41,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	@Resource(name="User_Service")
 	private UserService userService;
 	//注入User对象
-	@Resource(name="User")
-	private User user;
+	
+	private User user=new User();
 	
 	//模型驱动封装数据
 	@Override
@@ -61,28 +62,17 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		info="手机号必须是11位";}
 		
 		
-	//返回数据
-		HttpServletResponse response= ServletActionContext.getResponse();
-		response.setHeader("Content-type", "text/html;charset=UTF-8");   
-		response.setCharacterEncoding("UTF-8");
-		
+	//返回数据	
 		JSONObject json = new JSONObject();   
-		
     	 json.put("isSuccessful", isSuccessful);
     	 json.put("info", info);
-          System.out.println("UserAction层json"+json);
-        
-     PrintWriter out=response.getWriter();    	
-    	out.println(json);
-    	out.flush();
-    	out.close();
-		
+          Returndata.returndata(json);         		
 		return NONE;
 	}
 
 	
 	 
-//	 
+	 
 //	    public void validate()
 //	    {
 //	        HttpSession session = ServletActionContext.getRequest().getSession();

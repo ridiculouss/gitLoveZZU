@@ -12,10 +12,14 @@
 		<action name="comments_L1Action" class="comments_L1Action"></action>
 		<action name="comments_L2Action" class="comments_L2Action"></action>
 		<action name="cartAction" class="cartAction"></action>
-		<action name="OrderAction" class="OrderAction"></action>
-		<action name="TestAction" class="TestAction">
-		 <result name="sss" type="chain">OrderAction</result>
-		</action>
+		<action name="OrderAction" class="OrderAction">
+		
+		 </action>
+		
+		
+		
+	
+		
 	
 		
 	</package>

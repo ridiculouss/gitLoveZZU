@@ -8,18 +8,25 @@ public class Comments_L2 {
 	private String commented_id;//  被评论的内容的id（ L1ZZUL1_Cid）评论级别+连接符+被评论记录主键
 	private int num_replies;//回复数
 	private int num_thumb;//点赞数
+	private String ThembUser;//记录点赞人
+	private boolean Thembed;//是否已点赞
 	private String Cdate;//评论时间
+	private Comments_L1 comments_l1;
 	
-	//LL_id  一级评论表外键
-	private Integer LL_id;
-		public Integer getLL_id() {
-		return LL_id;
-	}
-	public void setLL_id(Integer lL_id) {
-		LL_id = lL_id;
-	}
-		private Comments_L1 comments_l1;
+
 		
+	public String getThembUser() {
+		return ThembUser;
+	}
+	public void setThembUser(String thembUser) {
+		ThembUser = thembUser;
+	}
+	public boolean isThembed() {
+		return Thembed;
+	}
+	public void setThembed(boolean thembed) {
+		Thembed = thembed;
+	}
 	public String getCdate() {
 		return Cdate;
 	}
@@ -73,8 +80,9 @@ public class Comments_L2 {
 	}
 	@Override
 	public String toString() {
-		return "Comments_L2 [L2_Cid=" + L2_Cid + ", account=" + account + ", comments=" + comments
-				+ ", commented_id=" + commented_id + ", num_replies=" + num_replies + ", num_thumb=" + num_thumb + "]";
+		return "Comments_L2 [L2_Cid=" + L2_Cid + ", account=" + account + ", comments=" + comments + ", commented_id="
+				+ commented_id + ", num_replies=" + num_replies + ", num_thumb=" + num_thumb + ", ThembUser="
+				+ ThembUser + ", Thembed=" + Thembed + ", Cdate=" + Cdate + "]";
 	}
 	
 }

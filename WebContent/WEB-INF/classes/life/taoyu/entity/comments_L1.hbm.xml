@@ -12,13 +12,14 @@
      <property name="num_replies"></property>
        <property name="num_thumb"></property>
        <property name="account"></property>
+       <property name="ThembUser"></property>
      <property name="Cdate"></property>
 
    <many-to-one name="Cgoods" class="life.taoyu.entity.Goods" column="GC_id" lazy="false">
   
    </many-to-one>
   <!-- 配置二级评论表-->
-  <set name="setcomments_L2" cascade="save-update" inverse="true">
+  <set name="setcomments_L2" cascade="all" inverse="true">
   <key column="LL_id"></key>
   <one-to-many class="life.taoyu.entity.Comments_L2" />
   </set>

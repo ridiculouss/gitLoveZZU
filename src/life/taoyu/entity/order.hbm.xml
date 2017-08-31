@@ -13,13 +13,14 @@
      <property name="address"></property>
      <property name="name"></property>
      <property name="phone"></property>
-     <property name="buyerOrseller"></property>
+     <property name="total"></property>
+    
     
      
    <many-to-one name="user" class="persionalCenter.entity.User" column="UO_id" lazy="false" ></many-to-one>
    
      <!-- 配置关联订单项表 -->
-		<set name="setorderitems" cascade="save-update" inverse="true" >
+		<set name="setorderitems" cascade="all" inverse="true" >
 		<key column="OOItems_id"></key>
 		<one-to-many  class="life.taoyu.entity.OrderItems"/>
 		</set>

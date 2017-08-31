@@ -40,6 +40,58 @@
 		<key column="UCart_id"></key>
 		<one-to-many  class="life.taoyu.entity.Cart"/>
 		</set>
+   <!-- 配置关联主题表 -->
+		<set name="settheme" cascade="save-update" inverse="true" >
+		<key column="UserTheme_fkey"></key>
+		<one-to-many  class="life.mytopiccircle.entity.Theme"/>
+		</set>
+   <!-- 配置关联话题表 -->
+		<set name="settopic" cascade="save-update" inverse="true" >
+		<key column="UserTopic_fkey"></key>
+		<one-to-many  class="life.mytopiccircle.entity.Topic"/>
+		</set>
+   <!-- 配置关联话题评论表 -->
+		<set name="settopiccomment" cascade="save-update" inverse="true" >
+		<key column="UserTopicComment_fkey"></key>
+		<one-to-many  class="life.mytopiccircle.entity.TopicComment"/>
+		</set>
+   <!-- 配置关联树洞表 -->
+		<set name="settreehole" cascade="save-update" inverse="true" >
+		<key column="UserTreeHole_fkey"></key>
+		<one-to-many  class="life.treeHole.entity.TreeHole"/>
+		</set>
+ 
+   <!-- 配置关联树洞评论表 -->
+		<set name="settreeholeComment" cascade="save-update" inverse="true" >
+		<key column="UserTreeHoleComment_fkey"></key>
+		<one-to-many  class="life.treeHole.entity.TreeHoleComment"/>
+		</set>
+ 
+   <!-- 配置关联树洞评论表 -->
+		<set name="setloveCardComment" cascade="save-update" inverse="true" >
+		<key column="UserLoveCardComment_fkey"></key>
+		<one-to-many  class="persionalCenter.confessionWall.entity.LoveCardComment"/>
+		</set>
+   <!-- 配置关联兼职表 -->
+		<set name="setpartTime" cascade="save-update" inverse="true" >
+		<key column="UserPartTime_fkey"></key>
+		<one-to-many  class="life.parTime.entity.PartTime"/>
+		</set>
+   <!-- 配置关联一起玩群组表 -->
+		<set name="setgroup" cascade="save-update" inverse="true" >
+		<key column="UserGroup_fkey"></key>
+		<one-to-many  class="life.playTogether.entity.Group"/>
+		</set>
+   <!-- 配置关联一起玩群组表 -->
+		<set name="setgroupDynamic" cascade="save-update" inverse="true" >
+		<key column="UserGroupDynamic_fkey"></key>
+		<one-to-many  class="life.playTogether.entity.GroupDynamic"/>
+		</set>
+   <!-- 配置关联一起玩群动态评论表 -->
+		<set name="setgroupDynamicComment" cascade="save-update" inverse="true" >
+		<key column="UserGroupDynamicComment_fkey"></key>
+		<one-to-many  class="life.playTogether.entity.GroupDynamicComment"/>
+		</set>
  
 	</class>
 </hibernate-mapping>

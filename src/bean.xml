@@ -41,14 +41,16 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!-- 开启对象和属性注解扫描 -->
+	
+	<context:component-scan base-package="zzu"/>
 	<context:component-scan base-package="life"/>
 	<context:component-scan base-package="friend"/>
 	<context:component-scan base-package="homePage"/>
 	<context:component-scan base-package="topicCircle"/>
 	<context:component-scan base-package="treeHole"/>
 	<context:component-scan base-package="persionalCenter"/>
-	<context:component-scan base-package="zzu"/>
-	<context:component-scan base-package="com.zzu"/>
+	
+	
 	
 
 	<!-- 创建对象 -->

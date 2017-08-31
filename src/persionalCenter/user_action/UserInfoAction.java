@@ -1,14 +1,13 @@
 package persionalCenter.user_action;
 
-import java.io.PrintWriter;
-
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -17,10 +16,12 @@ import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONObject;
 import persionalCenter.entity.UserInfo;
 import persionalCenter.service.UserService;
+import zzu.util.Returndata;
 
 
 @Transactional
-@Component(value="UserinfoAction")
+@Controller(value="UserinfoAction")
+@Component
 @Scope(value="prototype")
 public class UserInfoAction extends ActionSupport implements ModelDriven<UserInfo>{
 
@@ -32,8 +33,8 @@ public class UserInfoAction extends ActionSupport implements ModelDriven<UserInf
 	//注入service和实体类属性
 		@Resource(name="User_Service")
 		private UserService userService;
-		@Resource(name="UserInfo")
-		private UserInfo userinfo;
+		
+		private UserInfo userinfo=new UserInfo();
 		
 	@Override
 	public UserInfo getModel() {
@@ -47,22 +48,13 @@ public class UserInfoAction extends ActionSupport implements ModelDriven<UserInf
 		
 		if(!userinfo.equals("") && !userinfo.getPhone().equals("")){
 			
-			isSuccessful=userService.saveOrupdate(userinfo);
+			isSuccessful=userService.updateUserInfo(userinfo);
 		
 		}else{System.out.println("客户端传来的userinfo数据为空");}
+		userinfo=null;
+		
 			//返回数据
-			HttpServletResponse response= ServletActionContext.getResponse();
-			response.setHeader("Content-type", "text/html;charset=UTF-8");   
-			response.setCharacterEncoding("UTF-8");
-			JSONObject json = new JSONObject();   
-			
-	    	 json.put("isSuccessful", isSuccessful);
-	          System.out.println("UserInfoAction层json"+json);
-	        
-	     PrintWriter out=response.getWriter();    	
-	    	out.println(json);
-	    	out.flush();
-	    	out.close();
+			Returndata.returnboolean(isSuccessful);
 
 		return NONE;
 	}

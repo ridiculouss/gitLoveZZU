@@ -15,6 +15,7 @@ public class L1_Comments_Modeldriver {
 	private String l1_Cid;
 	
 
+
 	public int getNum() {
 		return num;
 	}
@@ -62,6 +63,12 @@ public class L1_Comments_Modeldriver {
 	}
 	public void setL1_Cid(String l1_Cid) {
 		this.l1_Cid = l1_Cid;
+	}
+	@Override
+	public String toString() {
+		return "L1_Comments_Modeldriver [goods_id=" + goods_id + ", num=" + num + ", action=" + action + ", sql=" + sql
+				+ ", values=" + values + ", SessionID=" + SessionID + ", comments=" + comments + ", l1_Cid=" + l1_Cid
+				;
 	}
 
 

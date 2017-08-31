@@ -1,13 +1,17 @@
 package life.taoyu.entity;
 
+import java.io.Serializable;
+
 import org.springframework.stereotype.Component;
 
 @Component(value = "orderitems")
-public class OrderItems {// 卖的订单实体类
+public class OrderItems implements Serializable{// 卖的订单实体类
 
 	private Integer items_id;// 订单项id
 	private Integer goods_id;// 商品id
 	private int count;// 商品数量
+	
+
 	// （OO_id 外键维护订单表）
 	private Order order;
 
@@ -46,7 +50,7 @@ public class OrderItems {// 卖的订单实体类
 	@Override
 	public String toString() {
 		return "OrderItems [ goods_id=" + goods_id + ", count=" + count +",items_id="+items_id
-				+ "]";
+				+"]";
 	}
 
 }

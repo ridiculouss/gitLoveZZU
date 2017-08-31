@@ -1,14 +1,6 @@
 package persionalCenter.user_action;
 
-import java.io.PrintWriter;
-import java.util.Enumeration;
-
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +12,6 @@ import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONObject;
 import persionalCenter.entity.User;
 import persionalCenter.service.UserService;
-import zzu.util.JudgePhone;
 import zzu.util.Judge_character;
 import zzu.util.Returndata;
 
@@ -39,8 +30,8 @@ public class LoginAction extends ActionSupport implements ModelDriven<User> {
 	@Resource(name="User_Service")
 	private UserService userService;
 	
-	@Resource(name="User")
-	private User user;
+	
+	private User user=new User();
 	
 	@Override
 	public User getModel() {
@@ -56,38 +47,25 @@ public class LoginAction extends ActionSupport implements ModelDriven<User> {
            
 		Judge_character j=new Judge_character();
 		String SessionID=null;
-		String info=null;
-		if( j.character(user.getPhone())){
-		System.out.println("LoginAction层User首次登陆"+user.toString());
-		SessionID=userService.query(user);
-		}else {
-			if(user.getSessionID() !=null && !user.getSessionID().isEmpty()){
-				System.out.println("用户再次登陆操作,SessionID:"+user.getSessionID().toString());
-				SessionID=userService.againquery(user);
-				if(SessionID == null || SessionID.equals("")){
-					info="登录失败，用户不存在";				
-				}else{System.out.println("SeesionID登陆");info="SessionID登陆";}
+		String info="";
+		if( j.character(user.getPhone())){//手机号登陆
+		info="用户手机号密码登陆"+user.toString();
+		SessionID=userService.PhoneLogin(user);
+		}else {//SessionID登陆
+		System.out.println("用户发来的登陆SessionID="+user.getSessionID());
+				SessionID=userService.SesionIDLogin(user);
+				if(SessionID == null){
+					SessionID="";
+					info="SessionID错误，或用户距离上次登陆超过30天";				
+				}
 				
-			}else{
-			info="客户端传来的手机号和SessionID数据都为空或不合法";
-			System.out.println("客户端传来的手机号和SessionID数据都为空");}
 			}
-	
-		
-		
-	
-
+	     System.out.println(info);
 		//返回数据
-		
-		
-		JSONObject json = new JSONObject();   
-      	 json.put("SessionID", SessionID);    	
-   	     json.put("info", info);    	
-         System.out.println("LoginAction层json"+json);
+	     JSONObject json = new JSONObject(); 
+	     json.put("SessionID", SessionID);
 		Returndata.returndata(json);
 
-	
-		
 		return null;
 	}
 	

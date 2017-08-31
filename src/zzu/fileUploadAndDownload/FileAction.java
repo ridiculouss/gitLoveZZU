@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -25,13 +26,13 @@ import net.sf.json.JSONObject;
 import persionalCenter.entity.UserInfo;
 import persionalCenter.service.UserService;
 import zzu.util.Returndata;
-
+@Transactional
 @Component(value = "imageupload")
 @Scope(value = "prototype")
 public class FileAction extends ActionSupport {
 
 	/**
-	 * 
+	 * 单图片上传（用户头像）
 	 */
 	@Resource(name = "User_Service")
 	private UserService userService;
@@ -74,7 +75,7 @@ public class FileAction extends ActionSupport {
 		this.myUploadContentType = myUploadContentType;
 	}
 
-	@SuppressWarnings("deprecation")
+	
 	public String upload() throws FileNotFoundException, IOException {
 		String[] str = new String[10];// str[0]
 										// 是放最新生成的图片名，str[1]是放获取数据库中的用户手机号，str[2]是放获取数据库中的旧的图片名
@@ -82,18 +83,22 @@ public class FileAction extends ActionSupport {
 		String imageurl = null;
 		System.out.println("客户端上传单个图片，发来的SessionID:" + SessionID);
 		HttpServletRequest request = ServletActionContext.getRequest();
-
+		//判断上传文件是否存在
+        if(myUpload ==null || !myUpload.exists()){
+        	System.err.println("上传文件不存在");
+        	return null;}
 		UserInfo userinfo = new UserInfo();
 		if (SessionID != null) {
 			str = userService.getImageName(SessionID);
-
 			userinfo.setPhone(str[1]);
 		} else {
-			System.out.println("上传图片时SessionID为空");
-			str[0] = "1.jpg";// 设置默认图片
+			System.err.println("上传图片时SessionID为空");
+			return null;
 		}
 
 		String strNewFileName = str[0];// 获得图片名
+	
+		@SuppressWarnings("deprecation")
 		String realPath = request.getRealPath("/").substring(0,
 				request.getRealPath("/").lastIndexOf(request.getContextPath().replace("/", "")));
 		File file = new File(realPath + File.separator + "uploadFiles" + File.separator);
@@ -152,7 +157,7 @@ public class FileAction extends ActionSupport {
 			}
 			
 		}
-		boolean b = userService.saveOrupdate(userinfo);
+		boolean b = userService.updateUserInfo(userinfo);
 		System.out.println("是否图片名保存数据库操作:" + b);
 
 		isSuccessful = b;
@@ -165,7 +170,7 @@ public class FileAction extends ActionSupport {
 		json.put("imageurl", imageurl);
 		Returndata.returndata(json);
 
-		return SUCCESS;
+		return null;
 
 	}
 

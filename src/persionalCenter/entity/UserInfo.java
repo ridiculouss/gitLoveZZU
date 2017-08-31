@@ -86,10 +86,9 @@ public class UserInfo {
 
 	@Override
 	public String toString() {
-		
-		return "UserInfo{phone:"+phone+"nickname:"+nickname+"gender:"+gender+"hometown:"+
-				hometown+"academy:"+academy+"departments:"+departments+"professional:"+professional+"}";
-
+		return "UserInfo [imageUrl=" + imageUrl + ", nickname=" + nickname + ", phone=" + phone + ", gender=" + gender
+				+ ", hometown=" + hometown + ", academy=" + academy + ", departments=" + departments + ", professional="
+				+ professional + "]";
 	}
 	
 }

@@ -21,7 +21,9 @@ body{
 <p>订单测试</p>
 
 <form action="OrderAction" method="post">
-
+action:<input type="text" name="action"/><br/><br/>
+orderID:<input type="text" name="orderID"/><br/><br/>
+SessionID:<input type="text" name="SessionID"/><br/><br/>
 
 <input type="submit" value="提交"/>
 </form>

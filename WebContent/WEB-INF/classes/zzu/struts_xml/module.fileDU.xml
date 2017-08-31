@@ -4,7 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 
-       <constant name="struts.multipart.maxSize" value="2097152"></constant>
+      <constant name="struts.multipart.maxSize" value="150000000"/>
 	<package name="zzuAction02" extends="struts-default" namespace="/">
 		<!-- class属性里面不写action全路径了，因为写，action对象创建两次
 			写spring配置的action的bean的id值
@@ -17,7 +17,7 @@
 		 </interceptor-ref>
 		 </interceptor-stack>
 		 </interceptors>
-
+         
 		
 		 <!-- 单文件上传 -->
         <action name="upload" class="imageupload" method="upload">
@@ -39,7 +39,7 @@
         <param name="contentType">application/jpg/jpeg/png/svg/swf/jpeg2000</param>
         <param name="inputName">targetFile</param>
         <param name="contentDisposition">filename="${imageURL}"</param>
-        <param name="bufferSize">4096</param>
+        <param name="bufferSize">40960000</param>
         <param name="input">error.html</param>
         </result>
         </action>

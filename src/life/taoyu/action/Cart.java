@@ -2,12 +2,14 @@ package life.taoyu.action;
 
 import java.util.List;
 
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -16,6 +18,7 @@ import life.taoyu.service.TaoyuService;
 import net.sf.json.JSONObject;
 import zzu.util.Getjson;
 import zzu.util.Returndata;
+@Transactional
 @Component(value = "cartAction")
 @Scope(value = "prototype")
 public class Cart extends ActionSupport{

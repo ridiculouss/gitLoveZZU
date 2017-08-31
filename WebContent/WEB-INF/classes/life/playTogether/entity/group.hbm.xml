@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+    <hibernate-mapping>
+    <class name="life.playTogether.entity.Group" table="t_group" dynamic-update="true">
+    <id name="groupId" >
+    <generator class="native"></generator>
+    </id>
+     <property name="name"></property>
+     <property name="picture"></property>
+     <property name="introduce"></property>
+     <property name="label"></property>
+     <property name="member"></property>
+     <property name="campus"></property>
+     <property name="date"></property>
+   
+      <many-to-one name="user" class="persionalCenter.entity.User" column="UserGroup_fkey" lazy="false"></many-to-one>
+   <!-- 配置关联动态表 -->
+	<set name="setgroupDynamic" cascade="all" inverse="true" >
+		<key column="GroupGroupDynamic_fkey"></key>
+		<one-to-many  class="life.playTogether.entity.GroupDynamic"/>
+		</set>
+   
+   </class>
+   </hibernate-mapping>

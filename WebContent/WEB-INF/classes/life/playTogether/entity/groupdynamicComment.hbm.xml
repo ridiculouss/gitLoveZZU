@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+    <hibernate-mapping>
+    <class name="life.playTogether.entity.GroupDynamicComment" table="t_groupDynamicComment" dynamic-update="true">
+    <id name="groupDynamicCommentId" >
+    <generator class="native"></generator>
+    </id>
+     <property name="comment"></property>
+     <property name="date"></property>
+   
+   
+      <many-to-one name="groupDynamic" class="life.playTogether.entity.GroupDynamic" column="GroupDynamicComment_fkey" lazy="false"></many-to-one>
+      <many-to-one name="user" class="persionalCenter.entity.User" column="UserGroupDynamicComment_fkey" lazy="false"></many-to-one>
+   
+   
+   </class>
+   </hibernate-mapping>

@@ -2,27 +2,25 @@
 <!DOCTYPE hibernate-mapping PUBLIC 
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<hibernate-mapping>
-	<!-- 1 配置类和表对应 
-		class标签
-		name属性：实体类全路径
-		table属性：数据库表名称
-	-->
-	<class name="life.treeHole.entity.TreeHole" table="t_treehole">
-		<id name="treeHoleid" column="treeHoleid" >
-			<generator class="native"></generator>
-		</id>
-        <property name="phoneTreeHole" column="phoneTreeHole"></property>
-		<property name="praiseNumber" column="praiseNumber"></property>
-		<property name="commentNumber" column="commentNumber"></property>
-		<property name="content" column="content"></property>
-		
-		<set name="treeHoleComment" cascade="save-update" inverse="false" lazy="false">
-		<key column="treeHoleid"></key>
+    
+    <hibernate-mapping>
+    <class name="life.treeHole.entity.TreeHole" table="t_treehole" dynamic-update="true">
+    <id name="treeHoleId" >
+    <generator class="native"></generator>
+    </id>
+     <property name="treeHoleContent"></property>
+     <property name="thembCount"></property>
+     <property name="commentCount"></property>
+     <property name="campus"></property>
+     <property name="ThembUser"></property>
+     <property name="date"></property>
+   
+      <many-to-one name="user" class="persionalCenter.entity.User" column="UserTreeHole_fkey" lazy="false"></many-to-one>
+   <!-- 配置关联树洞评论表 -->
+	<set name="settreeholeComment" cascade="save-update" inverse="true" >
+		<key column="TreeHoleTreeHoleComment_fkey"></key>
 		<one-to-many  class="life.treeHole.entity.TreeHoleComment"/>
-		
 		</set>
-   <!-- 配置映射用户信息表 -->
-		
-	</class>
-</hibernate-mapping>
+   
+   </class>
+   </hibernate-mapping>
